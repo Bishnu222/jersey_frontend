@@ -1,0 +1,141 @@
+/* Reset and Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: Arial, sans-serif;
+}
+
+/* Layout Container */
+.background-container {
+  display: flex;
+  flex-direction: row; /* Form on left, image on right */
+  height: 80vh;
+  width: 80vw;
+  margin-top: 10px;
+  margin-left: 10%;
+}
+
+/* Form Box */
+.register-box {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #E0E0E0;
+  padding: 40px;
+}
+
+/* Form Styling */
+.register-form {
+  width: 100%;
+  max-width: 400px;
+  background: transparent;
+  padding: 40px 30px;
+  border-radius: 8px;
+  border: 2px solid rgb(61, 61, 103);
+}
+
+.register-form h2 {
+  margin-bottom: 30px;
+  color: #333;
+  font-weight: 600;
+  font-size: 28px;
+  text-align: center;
+}
+
+.register-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #555;
+  font-size: 14px;
+}
+
+.register-form input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  background-color: rgb(61, 61, 103);
+  color: white;
+}
+
+.register-form input:focus {
+  border-color: #007BFF;
+  outline: none;
+}
+
+/* Submit Button */
+.submit-button {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  background-color: rgb(61, 61, 103);
+  border: 2px solid rgb(61, 61, 103);
+  border-radius: 6px;
+  color: black;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.submit-button:hover:not(:disabled) {
+  background-color: white;
+}
+
+/* Messages */
+.error {
+  color: #e74c3c;
+  font-size: 13px;
+  margin-top: -15px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.success {
+  color: #27ae60;
+  font-size: 14px;
+  margin-top: 15px;
+  text-align: center;
+}
+
+/* Image Styling */
+.background-image {
+  width: 50%;
+  height: 80vh;
+  object-fit: fill;
+  flex-shrink: 0;
+}
+
+/* Responsive: Stack on Mobile */
+@media (max-width: 768px) {
+  .background-container {
+    flex-direction: column;
+    width: 100vw;
+    height: auto;
+    margin-left: 0;
+  }
+
+  .register-box,
+  .background-image {
+    width: 100%;
+    height: auto;
+  }
+
+  .background-image {
+    order: 2;
+  }
+}

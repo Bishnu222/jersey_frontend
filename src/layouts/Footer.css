@@ -1,0 +1,128 @@
+
+
+
+.footer {
+  background-color: rgb(29, 87, 9);
+  color: #fff;
+  padding: 2rem 1rem 1rem;
+  font-family: Arial, sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 100%;
+  width: 100%;
+  padding: 0 3rem;
+  box-sizing: border-box;
+}
+
+.footer-left,
+.footer-center,
+.footer-right {
+  width: 300px;
+}
+
+/* Transparent Images with Hover Effect */
+.footer-img {
+  width: 250px;
+  height: auto;
+  margin-bottom: 10px;
+  object-fit: contain;
+  opacity: 0.6; /* Make image semi-transparent */
+  transition: opacity 0.3s ease;
+}
+
+.footer-img:hover {
+  opacity: 1; /* Fully visible on hover */
+}
+
+.footer-center {
+  text-align: center;
+}
+
+.footer-right {
+  text-align: right;
+}
+
+.footer-left h3,
+.footer-center h3,
+.footer-right h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #f4a261;
+}
+
+.footer-center ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-center ul li {
+  margin: 0.5rem 0;
+}
+
+.footer-center ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-center ul li a:hover {
+  background-color: #f4a261;
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  color: #000;
+}
+
+.social-icons a {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 0.7rem;
+  color: whitesmoke;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #f4a261;
+}
+
+.social-icons .icon {
+  margin-right: 8px;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 1rem;
+  font-size: 0.9rem;
+  color: #aaa;
+  border-top: 1px solid #333;
+  margin-top: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .footer-left,
+  .footer-center,
+  .footer-right {
+    width: 100%;
+    text-align: center;
+  }
+
+  .social-icons a {
+    justify-content: center;
+  }
+}

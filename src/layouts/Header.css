@@ -1,0 +1,133 @@
+/* Header container */
+header {
+  background-color: rgb(29, 87, 9); /* You can change this to #205a2e for dark green */
+  padding: 15px 0;
+  color: black;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Main layout container */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between; /* Changed to space-between to allow left-right content */
+  align-items: center;
+}
+
+.logo {
+  height: 80px;
+  max-height: 100px;
+  width: auto;
+  object-fit: contain;
+  padding: 1px;
+  margin-left: -70px;
+}
+
+
+
+.brand-text {
+  color: white;
+  font-size: 28px;
+  font-family: 'Impact', sans-serif;
+  font-style: italic;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: -1px 1px 0 #000;
+}
+
+.brand-text span {
+  display: block;
+  white-space: nowrap;
+  background: linear-gradient(to right, white 60%, transparent 0%);
+  background-size: 10px 100%;
+  background-repeat: repeat-x;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: white;
+}
+
+
+/* Search box */
+.search-box {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid white;
+  padding-bottom: 4px;
+  width: 350px;
+}
+
+.search-box input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-weight: bold;
+  flex-grow: 1;
+  padding-right: 8px;
+}
+
+.search-box input::placeholder {
+  color: white;
+  opacity: 0.9;
+}
+
+.search-icon {
+  color: white;
+  font-size: 16px;
+}
+
+/* Navigation links */
+nav {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+nav a {
+  color: #ccc;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background 0.3s, color 0.3s;
+}
+
+nav a:hover {
+  background-color: #333;
+  color: white;
+}
+
+nav a.active {
+  color: #ffffff;
+  background-color: #007bff;
+}
+
+nav span {
+  color: white;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+/* Icon container */
+.icon-buttons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Hamburger icon */
+.hamburger span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background-color: white;
+  margin: 4px 0;
+}
+
+/* Cart icon */
+.cart {
+  font-size: 20px;
+  color: white;
+}
