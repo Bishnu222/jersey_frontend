@@ -18,4 +18,4 @@ export const createOneCategoryApi = (data) =>
         })
     
     export const deleteOneCategoryApi = (id)=>
-        axios.delete("/admin/category"+id)
+        axios.delete("/admin/category"+id) 
