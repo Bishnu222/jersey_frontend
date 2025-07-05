@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useGetOneCategory, useUpdateOneCategory } from '../../hooks/admin/useAdminCategory'; // adjust paths if needed
 import { useParams } from 'react-router-dom';
-import { getBackendImageUrl } from '../../utils/backend-image'; // fix spelling if needed
+import { getBackenedImageUrl } from '../../utils/backend-image';
 import './UpdateCategory.css'; // create your CSS or adjust accordingly
 
 export default function UpdateCategory() {
@@ -80,7 +80,7 @@ export default function UpdateCategory() {
           ) : (
             <img
               className="preview-image"
-              src={getBackendImageUrl(categoryOne.category?.filepath)}
+              src={getBackenedImageUrl(categoryOne.category?.filepath)}
               alt="Current"
             />
           )}

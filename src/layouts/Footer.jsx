@@ -5,7 +5,7 @@ import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import "./Footer.css";
 
 // Import images from assets
-import logo1 from "../assets/logo.png";
+import logo1 from "../assets/logo.jpg";
 
 
 const Footer = () => {

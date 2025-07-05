@@ -1,10 +1,10 @@
 import React from 'react';
 import { useAdminProduct } from '../../hooks/admin/useAdminProduct';
-import { getBackendImageUrl } from '../../utils/backend-image';
 import './ProductTable.css';
 
 export default function ProductTable() {
   const {
+    data,
     error,
     isPending,
     products,
@@ -19,8 +19,8 @@ export default function ProductTable() {
     setSearch,
   } = useAdminProduct();
 
-  if (error) return <div>Error: {error.message}</div>;
-  if (isPending) return <div>Loading products...</div>;
+  if (error) return <>{error.message}</>;
+  // if (isPending) return <>Loading....</>;
 
   const handlePrev = () => {
     if (canPreviousPage) {
@@ -35,7 +35,7 @@ export default function ProductTable() {
   };
 
   const handleSearch = (e) => {
-    setPageNumber(1);
+    setPageNumber(1); // reset page number
     setSearch(e.target.value);
   };
 
@@ -44,32 +44,30 @@ export default function ProductTable() {
       <h2 className="product-table-title">Product Table</h2>
 
       <div className="product-controls">
-        <div className="product-select-wrapper">
-          <label>
-            Show
-            <select
-              className="product-select"
-              value={pagination.limit}
-              onChange={(e) => setPageSize(Number(e.target.value))}
-            >
-              <option value={10}>10</option>
-              <option value={20}>20</option>
-              <option value={30}>30</option>
-            </select>
-          </label>
+        <div>
+          <label>Show</label>
+          <select
+            className="product-select"
+            value={pagination.limit}
+            onChange={(e) => {
+              setPageSize(Number(e.target.value));
+            }}
+          >
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+            <option value={30}>30</option>
+          </select>
         </div>
 
-        <div className="product-search-wrapper">
-          <label>
-            Search:
-            <input
-              type="text"
-              className="product-search"
-              placeholder="Search products..."
-              onChange={handleSearch}
-              value={search}
-            />
-          </label>
+        <div>
+          <label>Search:</label>
+          <input
+            type="text"
+            className="product-search"
+            placeholder="Search products..."
+            onChange={handleSearch}
+            value={search}
+          />
         </div>
       </div>
 
@@ -79,39 +77,26 @@ export default function ProductTable() {
             <th>Product Image</th>
             <th>Product Name</th>
             <th>Price</th>
-            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {products.length === 0 ? (
-            <tr>
-              <td colSpan={4} className="no-results">
-                No products found.
+          {products.map((row) => (
+            <tr key={row._id}>
+              <td>
+                {row.filepath ? (
+                  <img
+                    src={getBackenedImageUrl(row.filepath)}
+                    alt={row.name}
+                    className="product-image"
+                  />
+                ) : (
+                  'No Image'
+                )}
               </td>
+              <td>{row.name}</td>
+              <td>{row.price}</td>
             </tr>
-          ) : (
-            products.map((row) => (
-              <tr key={row._id}>
-                <td>
-                  {row.filepath ? (
-                    <img
-                      src={getBackendImageUrl(row.filepath)}
-                      alt={row.name}
-                      className="product-image"
-                    />
-                  ) : (
-                    'No Image'
-                  )}
-                </td>
-                <td>{row.name}</td>
-                <td className="product-price">${row.price}</td>
-                <td className="product-actions">
-                  <button className="edit-btn">Edit</button>
-                  <button className="delete-btn">Delete</button>
-                </td>
-              </tr>
-            ))
-          )}
+          ))}
         </tbody>
       </table>
 

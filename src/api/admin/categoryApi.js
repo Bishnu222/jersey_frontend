@@ -7,15 +7,17 @@ export const createOneCategoryApi = (data) =>
             "Content-Type":"multipart/form-data"
         }
     })
-    export const getOneCategoryApi = (id)=>
-        axios.get("/admin/category/"+id)
+export const getOneCategoryApi = (id)=>
+    axios.get("/admin/category/"+id)
 
-    export const updateOneCategoryApi = (id,data)=>
-        axios.put("/admin/category/"+id,data,{
-            headers:{
-                "Content-Type":"multipart/from-data"
-            }
-        })
+export const updateOneCategoryApi = (id,data)=>
+    axios.put("/admin/category/"+id,data,{
+        headers:{
+            "Content-Type":"multipart/from-data"
+        }
+    })
     
-    export const deleteOneCategoryApi = (id)=>
-        axios.delete("/admin/category"+id) 
+export const deleteOneCategoryApi = (id)=>{
+    axios.delete("/admin/category"+id) 
+};
+    

@@ -11,17 +11,16 @@ const AuthContextProvider=({children}) =>{
         localStorage.setItem("token",token)
         localStorage.setItem("user",JSON.stringify(userData))
         setUser(userData)
-        setLoading(false)
+        
     }
     const logout=()=>{
         setLoading(true)
         localStorage.removeItem("token")
         localStorage.removeItem("user")
         setUser(null)
-        setLoading(false)
+        
     }
     useEffect(() =>{
-        setLoading(true)
         const token =localStorage.getItem("token")
         const storedUser=localStorage.getItem("user")
         if(token && storedUser){

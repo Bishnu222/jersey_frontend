@@ -1,3 +1,3 @@
-import axios from "../api";
+import axios from "../api"
 
-export const geAllProductApi = (params) => axios.get("/admin/product",{params})
+export const getAllProductApi = (params) => axios.get("/admin/product", {params})

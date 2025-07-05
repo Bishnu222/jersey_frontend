@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { AuthContext } from '../auth/AuthProvider'
-import logo from '../assets/logo.png'
+import logo from '../assets/logo.jpg'
 import './Header.css'
 
 export default function Header() {
