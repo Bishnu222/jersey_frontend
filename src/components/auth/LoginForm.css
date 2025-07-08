@@ -1,3 +1,5 @@
+
+/* Global Reset & Base Styles */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -7,23 +9,40 @@
 html, body {
   height: 100%;
   width: 100%;
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Poppins', Arial, sans-serif;
   background-color: #f9f9f9;
 }
 
+/* Layout Container */
 .background-container {
   display: flex;
   flex-direction: row-reverse;
-  height: 80vh;
-  width: 80vw;
+  height: 85vh;
+  width: 85vw;
   background-color: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  margin: 2rem auto;
 }
 
+/* Image Section */
+.background-image {
+  width: 50%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  flex-shrink: 0;
+  filter: brightness(0.9);
+  transition: filter 0.3s ease;
+}
+
+.background-image:hover {
+  filter: brightness(1);
+}
+
+/* Login Section */
 .login-box {
   width: 50%;
   display: flex;
@@ -38,9 +57,9 @@ html, body {
   max-width: 400px;
   background: #fff;
   padding: 40px 30px;
-  border-radius: 8px;
-  border: 2px solid #ddd;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border-radius: 10px;
+  border: 2px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   color: #333;
 }
 
@@ -50,16 +69,16 @@ html, body {
   font-weight: 700;
   font-size: 28px;
   text-align: left;
-  font-family: 'Impact', sans-serif;
   letter-spacing: 1.5px;
   text-transform: uppercase;
 }
 
+/* Labels & Inputs */
 .login-form label {
   display: block;
   margin-bottom: 8px;
   font-weight: 600;
-  color: #666;
+  color: #555;
   font-size: 14px;
 }
 
@@ -70,9 +89,9 @@ html, body {
   border: 1.5px solid #ccc;
   border-radius: 6px;
   font-size: 15px;
-  transition: border-color 0.3s ease;
   background-color: #fff;
   color: #333;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
 .login-form input::placeholder {
@@ -83,9 +102,10 @@ html, body {
 .login-form input:focus {
   border-color: #007bff;
   outline: none;
-  background-color: #fff;
+  background-color: #fdfdfd;
 }
 
+/* Validation & Feedback */
 .input-error {
   border-color: #e74c3c !important;
 }
@@ -93,7 +113,7 @@ html, body {
 .error {
   color: #e74c3c;
   font-size: 13px;
-  margin-top: -15px;
+  margin-top: -12px;
   margin-bottom: 15px;
 }
 
@@ -104,6 +124,7 @@ html, body {
   text-align: center;
 }
 
+/* Button */
 .submit-button {
   width: 100%;
   padding: 14px;
@@ -111,10 +132,10 @@ html, body {
   background-color: #007bff;
   border: 2px solid #007bff;
   border-radius: 6px;
-  color: white;
+  color: #fff;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .submit-button:disabled {
@@ -128,26 +149,32 @@ html, body {
   border-color: #0056b3;
 }
 
-.background-image {
-  width: 50%;
-  height: 80vh;
-  background-size: cover;        
-  background-repeat: no-repeat;
-  background-position: center;
-  flex-shrink: 0;
-  filter: brightness(0.9);
-  transition: filter 0.3s ease;
+/* Register Text */
+.register-container {
+  margin-top: 25px;
+  text-align: center;
+  font-size: 14px;
+  color: #555;
 }
 
-.background-image:hover {
-  filter: brightness(1);
+.register-link {
+  color: #007bff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  cursor: pointer;
 }
 
-/* Responsive adjustments */
+.register-link:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+/* Mobile Responsive */
 @media (max-width: 768px) {
   .background-container {
     flex-direction: column;
-    width: 90vw;
+    width: 95vw;
     height: auto;
   }
 
@@ -163,25 +190,10 @@ html, body {
   .background-image {
     height: 200px;
     margin-top: 20px;
+    border-radius: 0;
   }
-  .register-container {
-  margin-top: 25px;
-  text-align: center;
-  font-size: 14px;
-  color: #555;
-}
 
-.register-link {
-  color: #007bff;
-  font-weight: 600;
-  text-decoration: none;
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.register-link:hover {
-  color: #0056b3;
-  text-decoration: underline;
-}
-
+  .login-form {
+    padding: 30px 20px;
+  }
 }

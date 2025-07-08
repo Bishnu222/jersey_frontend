@@ -1,58 +1,137 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRegisterUser as useRegisterUserTan } from '../../hooks/useRegisterUserTan';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './RegisterForm.css';
 import registerBg from '../../assets/register.png';
 
 export default function RegisterForm() {
-    const { mutate, data, error, isPending, isSuccess, isError } = useRegisterUserTan();
-    const formRef = useRef(null);
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const { mutate, data, error, isPending, isSuccess, isError } = useRegisterUserTan();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const formData = {
-            email: e.target.email.value,
-            username: e.target.username.value,
-            password: e.target.password.value
-        };
-        mutate(formData);
-    };
+  const [formValues, setFormValues] = useState({
+    email: '',
+    username: '',
+    password: '',
+    address: ''
+  });
 
-    useEffect(() => {
-        if (isSuccess) {
-            formRef.current?.reset(); // Optional: clear form
-            setTimeout(() => {
-                navigate('/login'); // 🔁 Navigate to login page after success
-            }, 1000); // Optional: small delay for feedback
-        }
-    }, [isSuccess, navigate]);
+  // Controlled input handler
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues((prev) => ({ ...prev, [name]: value }));
+  };
 
-    return (
-        <div className="background-container">
-            <img src={registerBg} alt="register" className="background-image" />
+  // Basic client-side validation
+  const validateForm = () => {
+    const { email, username, password, address } = formValues;
+    if (!email || !username || !password || !address) {
+      toast.error('All fields are required!');
+      return false;
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      toast.error('Invalid email format.');
+      return false;
+    }
+    if (password.length < 6) {
+      toast.error('Password must be at least 6 characters.');
+      return false;
+    }
+    return true;
+  };
 
-            <div className="register-box">
-                <form onSubmit={handleSubmit} className="register-form" ref={formRef}>
-                    <h2>Register</h2>
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      mutate(formValues);
+    }
+  };
 
-                    <label htmlFor="email">Email</label>
-                    <input type="email" name="email" id="email" required />
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success(data?.message || 'Registration successful!');
+      setFormValues({
+        email: '',
+        username: '',
+        password: '',
+        address: ''
+      });
+      setTimeout(() => {
+        navigate('/login');
+      }, 2000);
+    }
+  }, [isSuccess, data, navigate]);
 
-                    <label htmlFor="username">Username</label>
-                    <input type="text" name="username" id="username" required />
+  useEffect(() => {
+    if (isError) {
+      const message =
+        error?.response?.data?.message ||
+        error?.message ||
+        'Something went wrong. Please try again.';
+      toast.error(message);
+    }
+  }, [isError, error]);
 
-                    <label htmlFor="password">Password</label>
-                    <input type="password" name="password" id="password" required />
+  return (
+    <div className="background-container">
+      <img src={registerBg} alt="register" className="background-image" />
 
-                    <button type="submit" className="submit-button" disabled={isPending}>
-                        {isPending ? 'Registering...' : 'Register'}
-                    </button>
+      <div className="register-box">
+        <form onSubmit={handleSubmit} className="register-form" noValidate>
+          <h2>Register</h2>
 
-                    {isError && <p className="error">{error.message}</p>}
-                    {isSuccess && <p className="success">{data.message}</p>}
-                </form>
-            </div>
-        </div>
-    );
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            value={formValues.email}
+            onChange={handleChange}
+            required
+            autoComplete="email"
+          />
+
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            name="username"
+            id="username"
+            value={formValues.username}
+            onChange={handleChange}
+            required
+            autoComplete="username"
+          />
+
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            value={formValues.password}
+            onChange={handleChange}
+            required
+            autoComplete="new-password"
+          />
+
+          <label htmlFor="address">Address</label>
+          <input
+            type="text"
+            name="address"
+            id="address"
+            value={formValues.address}
+            onChange={handleChange}
+            required
+            autoComplete="street-address"
+          />
+
+          <button type="submit" className="submit-button" disabled={isPending}>
+            {isPending ? <span className="spinner"></span> : 'Register'}
+          </button>
+        </form>
+      </div>
+
+      <ToastContainer position="top-center" autoClose={2000} />
+    </div>
+  );
 }

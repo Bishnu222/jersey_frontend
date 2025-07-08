@@ -1,23 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useLoginUser } from '../../hooks/useLoginUser';
-import { Link } from 'react-router-dom'; // <-- Import Link
+import { Link, useNavigate } from 'react-router-dom';
 import './LoginForm.css';
-import loginBg from '../../assets/login.png'; 
+import loginBg from '../../assets/login.png';
 
 export default function LoginForm() {
-  const { mutate, data, error, isPending } = useLoginUser();
+  const navigate = useNavigate();
+  const { mutate, data, error, isPending, isSuccess, isError } = useLoginUser();
 
   const validationSchema = Yup.object({
-    email: Yup.string().email("Invalid email").required("Please fill email"),
-    password: Yup.string().min(8, "Password needs 8 characters").required("Please fill the password")
+    email: Yup.string().email("Invalid email format").required("Email is required"),
+    password: Yup.string().min(8, "Password must be at least 8 characters").required("Password is required")
   });
 
   const formik = useFormik({
     initialValues: {
-      email: "",
-      password: ""
+      email: '',
+      password: ''
     },
     validationSchema,
     onSubmit: (values) => {
@@ -25,10 +26,18 @@ export default function LoginForm() {
     }
   });
 
+  useEffect(() => {
+    if (isSuccess && data?.token) {
+      // Save token or navigate
+      localStorage.setItem('token', data.token); // Optional
+      navigate('/dashboard'); // Redirect after login
+    }
+  }, [isSuccess, data, navigate]);
+
   return (
     <div className="background-container">
       <div className="login-box">
-        <form onSubmit={formik.handleSubmit} className="login-form">
+        <form onSubmit={formik.handleSubmit} className="login-form" noValidate>
           <h2>Login</h2>
 
           <label htmlFor="email">Email</label>
@@ -36,6 +45,7 @@ export default function LoginForm() {
             id="email"
             type="email"
             name="email"
+            autoComplete="email"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.email}
@@ -50,6 +60,7 @@ export default function LoginForm() {
             id="password"
             type="password"
             name="password"
+            autoComplete="current-password"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.password}
@@ -63,16 +74,20 @@ export default function LoginForm() {
             {isPending ? 'Logging in...' : 'Login'}
           </button>
 
-          {/* Register button/link below */}
           <div className="register-container">
-            <p>Don't have an account? <Link to="/register" className="register-link">Register</Link></p>
+            <p>
+              Don't have an account?{' '}
+              <Link to="/register" className="register-link">Register</Link>
+            </p>
           </div>
 
-          {error && <p className="error">Login failed. Try again.</p>}
-          {data && <p className="success">Login successful!</p>}
+          {isError && (
+            <p className="error">{error?.response?.data?.message || 'Login failed. Please try again.'}</p>
+          )}
         </form>
       </div>
-      <img src={loginBg} alt="background" className="background-image" />
+
+      <img src={loginBg} alt="login" className="background-image" />
     </div>
   );
 }

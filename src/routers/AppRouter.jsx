@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Homepage from '../pages/Homepage'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
-import StateManage from '../pages/StateManage'
 import GuestRoute from './GuestRoute'
 import NormalUserRoute from './NormalUserRoute'
 import ProductManagement from '../pages/admin/ProductManagement'
@@ -13,6 +12,9 @@ import CreateCategory from '../pages/admin/CreateCategory'
 import CategoryManagement from '../pages/admin/CategoryManagement'
 import ViewCategory from '../pages/admin/ViewCategory'
 import UpdateCategory from '../pages/admin/UpdateCategory'
+import CreateUserForm from '../pages/admin/CreateUser.jsx'
+import AddProducts from '../pages/admin/AddProduct'
+import UserManagement from '../pages/admin/UserManagement'
 
 export default function AppRouter() {
   return (
@@ -36,9 +38,12 @@ export default function AppRouter() {
 
         <Route path='/admin' element={<AdminLayout />}>
           <Route path='products' element={<ProductManagement />} />
+          <Route path="addproduct" element={<AddProducts />} />
           <Route path='category' element={<CategoryManagement />} />
           <Route path='category/create' element={<CreateCategory />} />
           <Route path='category/:id' element={<ViewCategory />} />
+          <Route path="user/create" element={<CreateUserForm />} />
+          <Route path="user" element={<UserManagement />} />
           <Route path='category/:id/edit' element={<UpdateCategory />} />
         </Route>
       </Routes>

@@ -12,5 +12,3 @@ export default function MainLayout() {
     </div>
   )
 }
-
-//outlet dynamic child/children placeholder...

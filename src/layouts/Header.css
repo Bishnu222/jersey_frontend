@@ -117,17 +117,3 @@ nav span {
   gap: 20px;
 }
 
-/* Hamburger icon */
-.hamburger span {
-  display: block;
-  width: 20px;
-  height: 2px;
-  background-color: white;
-  margin: 4px 0;
-}
-
-/* Cart icon */
-.cart {
-  font-size: 20px;
-  color: white;
-}
