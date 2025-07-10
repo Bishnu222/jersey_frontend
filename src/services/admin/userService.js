@@ -1,58 +1,51 @@
-import {createUserApi, getAllUserApi, deleteUserApi, updateUserApi , getUserByIdApi} from "../../api/admin/userApi";
-
+import { createUserApi, getAllUserApi, deleteUserApi, updateUserApi, getUserByIdApi } from "../../api/admin/userApi";
 
 export const createUserService = async (formData) => {
-    try {
-        const response = await createUserApi(formData);
-        return response;
-    } catch (err) {
-        throw err?.response?.data || { message: "Failed to create user" };
-    }
+  try {
+    const response = await createUserApi(formData);
+    return response; // Assuming response is already response.data
+  } catch (err) {
+    throw new Error(err?.message || "Failed to create user");
+  }
 };
 
-
 export const getAllUserService = async () => {
-    try {
-        const response = await getAllUserApi()
-        return response.data
-    } catch (err) {
-        throw err.response?.data || { "message": "Failed to fetch" }
-    }
-}
-
+  try {
+    const response = await getAllUserApi();
+    return response; // assuming response is response.data (an array)
+  } catch (err) {
+    throw new Error(err?.message || "Failed to fetch users");
+  }
+};
 
 export const getUserByIdService = async (id) => {
   try {
     const response = await getUserByIdApi(id);
-    if (response.succes) {
-      return response.data; // <-- return only user data here
+    // Check if response has success and data
+    if (response.success) {
+      return response.data; // return the user data only
     } else {
       throw new Error(response.message || "Failed to fetch user");
     }
   } catch (err) {
-    throw err?.response?.data || { message: err.message || "Failed to fetch user" };
+    throw new Error(err?.message || "Failed to fetch user");
   }
 };
 
-
 export const updateUserService = async ({ id, data }) => {
-    try {
-        const response = await updateUserApi({ id, data });
-        return response;
-    } catch (error) {
-        throw error?.response?.data || { message: "Failed to update user" };
-    }
+  try {
+    const response = await updateUserApi({ id, data });
+    return response; // assuming response.data
+  } catch (error) {
+    throw new Error(error?.message || "Failed to update user");
+  }
 };
 
 export const deleteUserService = async (id) => {
   try {
     const response = await deleteUserApi(id);
-    return response.data;  // { success: true, message: "User Deleted" }
+    return response; // assuming response.data with success and message
   } catch (error) {
-    // Extract a useful error message
-    if (error.response && error.response.data && error.response.data.message) {
-      throw new Error(error.response.data.message);
-    }
-    throw new Error("Failed to delete user");
+    throw new Error(error?.message || "Failed to delete user");
   }
 };

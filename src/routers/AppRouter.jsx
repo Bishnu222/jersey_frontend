@@ -20,8 +20,6 @@ export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/state-test' element={<StateManage />} />
-
         <Route element={<MainLayout />}>
           <Route path='/' element={<Homepage />} />
           <Route element={<GuestRoute />}>
@@ -37,14 +35,16 @@ export default function AppRouter() {
         </Route>
 
         <Route path='/admin' element={<AdminLayout />}>
-          <Route path='products' element={<ProductManagement />} />
-          <Route path="addproduct" element={<AddProducts />} />
+          <Route path='product' element={<ProductManagement />} />
+          <Route path='addproduct' element={<AddProducts />} />
           <Route path='category' element={<CategoryManagement />} />
           <Route path='category/create' element={<CreateCategory />} />
           <Route path='category/:id' element={<ViewCategory />} />
-          <Route path="user/create" element={<CreateUserForm />} />
-          <Route path="user" element={<UserManagement />} />
           <Route path='category/:id/edit' element={<UpdateCategory />} />
+
+          {/* Changed user routes to plural 'users' */}
+          <Route path='users' element={<UserManagement />} />
+          <Route path='users/create' element={<CreateUserForm />} />
         </Route>
       </Routes>
     </BrowserRouter>

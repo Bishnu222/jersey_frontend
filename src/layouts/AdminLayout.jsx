@@ -171,7 +171,7 @@ export default function AdminLayout() {
         </main>
 
         <footer className="text-center py-2 bg-gray-100" role="contentinfo">
-          &copy; {new Date().getFullYear()} Boot's Buy. All rights reserved.
+          &copy; {new Date().getFullYear()} Jersey Hub. All rights reserved.
         </footer>
       </div>
     </div>

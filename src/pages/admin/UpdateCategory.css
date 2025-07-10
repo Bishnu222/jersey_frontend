@@ -2,17 +2,17 @@
   max-width: 500px;
   margin: 2rem auto;
   padding: 1.5rem;
-  background-color: #fff;
+  background-color: #ffffff; /* bright white background */
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.12); /* slightly stronger shadow for better depth */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .update-category-title {
   font-size: 1.75rem;
-  font-weight: 600;
+  font-weight: 700; /* bolder title for better emphasis */
   margin-bottom: 1.5rem;
-  color: #333;
+  color: #111827; /* very dark gray, almost black for strong readability */
 }
 
 .update-category-form {
@@ -22,29 +22,39 @@
 }
 
 .form-label {
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 0.5rem;
-  color: #555;
+  color: #374151; /* dark slate gray */
 }
 
 .form-input {
   padding: 0.5rem 0.75rem;
   font-size: 1rem;
-  border: 1px solid #ccc;
+  border: 1.5px solid #9ca3af; /* medium gray border for visibility */
   border-radius: 6px;
+  background-color: #ffffff; /* white background to ensure text stands out */
+  color: #111827; /* dark text for clear reading */
   outline-offset: 2px;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-input::placeholder {
+  color: #6b7280; /* gray placeholder text */
 }
 
 .form-input:focus {
-  border-color: #3b82f6; /* blue-500 */
+  border-color: #2563eb; /* blue-600 */
+  box-shadow: 0 0 5px #2563ebaa; /* subtle blue glow */
   outline: none;
+  background-color: #ffffff;
+  color: #111827;
 }
 
 .form-error {
   font-size: 0.875rem;
   color: #dc2626; /* red-600 */
   margin-top: 0.25rem;
+  font-weight: 600;
 }
 
 .image-preview {
@@ -57,26 +67,31 @@
   max-height: 150px;
   object-fit: cover;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #9ca3af;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .update-button {
   padding: 0.6rem 1.2rem;
   background-color: #2563eb; /* blue-600 */
   color: white;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 1rem;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.6);
 }
 
 .update-button:hover {
   background-color: #1d4ed8; /* blue-700 */
+  box-shadow: 0 4px 10px rgba(29, 78, 216, 0.8);
 }
 
 .update-button:disabled {
   background-color: #93c5fd; /* blue-300 */
   cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.7;
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRegisterUser as useRegisterUserTan } from '../../hooks/useRegisterUserTan';
+import { useRegisterUser } from '../../hooks/useRegisterUser';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './RegisterForm.css';
@@ -8,7 +8,7 @@ import registerBg from '../../assets/register.png';
 
 export default function RegisterForm() {
   const navigate = useNavigate();
-  const { mutate, data, error, isPending, isSuccess, isError } = useRegisterUserTan();
+  const { register, data, error, isLoading } = useRegisterUser();
 
   const [formValues, setFormValues] = useState({
     email: '',
@@ -17,13 +17,11 @@ export default function RegisterForm() {
     address: ''
   });
 
-  // Controlled input handler
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Basic client-side validation
   const validateForm = () => {
     const { email, username, password, address } = formValues;
     if (!email || !username || !password || !address) {
@@ -41,37 +39,27 @@ export default function RegisterForm() {
     return true;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      mutate(formValues);
+      const result = await register(formValues);
+      if (result) {
+        toast.success(result.message || 'Registration successful!');
+        setFormValues({ email: '', username: '', password: '', address: '' });
+        setTimeout(() => navigate('/login'), 2000);
+      }
     }
   };
 
   useEffect(() => {
-    if (isSuccess) {
-      toast.success(data?.message || 'Registration successful!');
-      setFormValues({
-        email: '',
-        username: '',
-        password: '',
-        address: ''
-      });
-      setTimeout(() => {
-        navigate('/login');
-      }, 2000);
-    }
-  }, [isSuccess, data, navigate]);
-
-  useEffect(() => {
-    if (isError) {
+    if (error) {
       const message =
         error?.response?.data?.message ||
         error?.message ||
         'Something went wrong. Please try again.';
       toast.error(message);
     }
-  }, [isError, error]);
+  }, [error]);
 
   return (
     <div className="background-container">
@@ -79,7 +67,7 @@ export default function RegisterForm() {
 
       <div className="register-box">
         <form onSubmit={handleSubmit} className="register-form" noValidate>
-          <h2>Register</h2>
+          <h2 className="form-title">Register</h2>
 
           <label htmlFor="email">Email</label>
           <input
@@ -90,6 +78,7 @@ export default function RegisterForm() {
             onChange={handleChange}
             required
             autoComplete="email"
+            placeholder="Enter your email"
           />
 
           <label htmlFor="username">Username</label>
@@ -101,6 +90,7 @@ export default function RegisterForm() {
             onChange={handleChange}
             required
             autoComplete="username"
+            placeholder="Choose a username"
           />
 
           <label htmlFor="password">Password</label>
@@ -112,6 +102,7 @@ export default function RegisterForm() {
             onChange={handleChange}
             required
             autoComplete="new-password"
+            placeholder="Create a password"
           />
 
           <label htmlFor="address">Address</label>
@@ -123,10 +114,11 @@ export default function RegisterForm() {
             onChange={handleChange}
             required
             autoComplete="street-address"
+            placeholder="Your address"
           />
 
-          <button type="submit" className="submit-button" disabled={isPending}>
-            {isPending ? <span className="spinner"></span> : 'Register'}
+          <button type="submit" className="submit-button" disabled={isLoading}>
+            {isLoading ? <span className="spinner"></span> : 'Register'}
           </button>
         </form>
       </div>

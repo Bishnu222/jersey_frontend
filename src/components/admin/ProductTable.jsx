@@ -2,25 +2,31 @@ import React from 'react';
 import { useAdminProduct } from '../../hooks/admin/useAdminProduct';
 import './ProductTable.css';
 
+// Helper to build full image URL from backend path (adjust as needed)
+const getBackendImageUrl = (path) => {
+  if (!path) return '';
+  // Adjust BASE_URL according to your backend server config
+  const BASE_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5050';
+  return `${BASE_URL}/${path}`;
+};
+
 export default function ProductTable() {
   const {
-    data,
     error,
     isPending,
-    products,
-    pageNumber,
-    setPageNumber,
-    pagination,
+    products = [],
+    pagination = {},
     canNextPage,
     canPreviousPage,
-    pageSize,
+    setPageNumber,
     setPageSize,
     search,
     setSearch,
   } = useAdminProduct();
 
-  if (error) return <>{error.message}</>;
-  // if (isPending) return <>Loading....</>;
+  if (error) return <div className="error-message">{error.message}</div>;
+
+  if (isPending) return <div className="loading-message">Loading...</div>;
 
   const handlePrev = () => {
     if (canPreviousPage) {
@@ -35,7 +41,7 @@ export default function ProductTable() {
   };
 
   const handleSearch = (e) => {
-    setPageNumber(1); // reset page number
+    setPageNumber(1); // reset to first page on new search
     setSearch(e.target.value);
   };
 
@@ -45,28 +51,30 @@ export default function ProductTable() {
 
       <div className="product-controls">
         <div>
-          <label>Show</label>
+          <label htmlFor="pageSizeSelect">Show</label>
           <select
+            id="pageSizeSelect"
             className="product-select"
-            value={pagination.limit}
-            onChange={(e) => {
-              setPageSize(Number(e.target.value));
-            }}
+            value={pagination.limit || 10}
+            onChange={(e) => setPageSize(Number(e.target.value))}
           >
-            <option value={10}>10</option>
-            <option value={20}>20</option>
-            <option value={30}>30</option>
+            {[10, 20, 30].map((size) => (
+              <option key={size} value={size}>
+                {size}
+              </option>
+            ))}
           </select>
         </div>
 
         <div>
-          <label>Search:</label>
+          <label htmlFor="searchInput">Search:</label>
           <input
+            id="searchInput"
             type="text"
             className="product-search"
             placeholder="Search products..."
             onChange={handleSearch}
-            value={search}
+            value={search || ''}
           />
         </div>
       </div>
@@ -80,12 +88,19 @@ export default function ProductTable() {
           </tr>
         </thead>
         <tbody>
+          {products.length === 0 && (
+            <tr>
+              <td colSpan={3} style={{ textAlign: 'center' }}>
+                No products found.
+              </td>
+            </tr>
+          )}
           {products.map((row) => (
             <tr key={row._id}>
               <td>
                 {row.filepath ? (
                   <img
-                    src={getBackenedImageUrl(row.filepath)}
+                    src={getBackendImageUrl(row.filepath)}
                     alt={row.name}
                     className="product-image"
                   />
@@ -105,7 +120,7 @@ export default function ProductTable() {
           ⬅ Back
         </button>
         <span>
-          Page {pagination.page} of {pagination.totalPages}
+          Page {pagination.page || 1} of {pagination.totalPages || 1}
         </span>
         <button onClick={handleNext} disabled={!canNextPage}>
           Next ➡
