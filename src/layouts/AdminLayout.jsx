@@ -67,7 +67,9 @@ export default function AdminLayout() {
     { to: "/admin/product", label: "Products" },
     { to: "/admin/category", label: "Categories" },
     { to: "/admin/category/create", label: "Create Category" },
+    
   ];
+
 
   const renderNavLink = ({ to, label }) => (
     <NavLink
