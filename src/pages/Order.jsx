@@ -4,7 +4,7 @@ import { useFetchOrdersByUser, useDeleteOrder } from "../hooks/useCreateOrder";
 import { useContext, useState } from "react";
 import { AuthContext } from "../auth/AuthProvider";
 import { MdRemoveShoppingCart } from "react-icons/md";
-import MyOrderCard from "../components/MyOrderCard";
+import MyOrderCard from "../components/auth/OrderCard";
 import DeleteModal from "../components/DeleteModal";
 import { toast } from "react-toastify";
 
@@ -23,7 +23,7 @@ const groupOrdersByDate = (orders) => {
   return grouped;
 };
 
-export default function MyOrders() {
+export default function Order() {
   const { user } = useContext(AuthContext);
   const userId = user?._id;
 
