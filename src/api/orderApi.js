@@ -14,7 +14,7 @@ export const createOrderApi = (data) =>
       "Content-Type": "application/json",
     },
   });
-// ✅ Update order status
+// Update order status
 export const updateOrderStatusApi = (orderId, status) =>
   axios.put(`/orders/${orderId}/status`, { status });
 
