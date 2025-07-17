@@ -1,29 +1,29 @@
-import axios from "../api";
+import axios from "axios";
 
-// GET all products
-export const getAllProductApi = (params) =>
-  axios.get("/admin/product", { params });
+const BASE_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5050";
 
-// CREATE a product
-export const createProductApi = (data) =>
-  axios.post("/admin/product", data, {
+export const getAllProductApi = (params) => {
+  return axios.get(`${BASE_URL}/api/admin/product`, { params });
+};
+
+export const createProductApi = (formData) => {
+  return axios.post(`${BASE_URL}/api/admin/product`, formData, {
     headers: {
-      "Content-Type": "multipart/form-data"
-    }
+      "Content-Type": "multipart/form-data",
+    },
   });
+};
 
-// DELETE a product
-export const deleteOneProductApi = (id) =>
-  axios.delete(`/admin/product/${id}`);
+export const deleteOneProductApi = (id) => {
+  if (!id) throw new Error("Product ID is required");
+  return axios.delete(`${BASE_URL}/api/admin/product/${id}`);
+};
 
-// GET products by category
-export const getProductsByCategoryApi = (categoryId) =>
-  axios.get(`/admin/product/category/${categoryId}`);
-
-// UPDATE a product (edit)
-export const updateProductApi = (id, data) =>
-  axios.put(`/admin/product/${id}`, data, {
+export const updateProductApi = (id, data) => {
+  if (!id) throw new Error("Product ID is required");
+  return axios.put(`${BASE_URL}/api/admin/product/${id}`, data, {
     headers: {
-      "Content-Type": "multipart/form-data"
-    }
+      "Content-Type": "multipart/form-data",
+    },
   });
+};

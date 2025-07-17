@@ -5,7 +5,6 @@ import {
   updateProductApi,
 } from "../../api/admin/productApi";
 
-// GET
 export const getAllProductService = async (params) => {
   try {
     const response = await getAllProductApi(params);
@@ -15,7 +14,6 @@ export const getAllProductService = async (params) => {
   }
 };
 
-// POST (Create)
 export const createProductService = async (formData) => {
   try {
     const response = await createProductApi(formData);
@@ -25,7 +23,6 @@ export const createProductService = async (formData) => {
   }
 };
 
-// DELETE
 export const deleteProductService = async (id) => {
   try {
     const response = await deleteOneProductApi(id);
@@ -35,7 +32,6 @@ export const deleteProductService = async (id) => {
   }
 };
 
-// PUT (Update)
 export const updateProductService = async ({ id, data }) => {
   try {
     const response = await updateProductApi(id, data);
