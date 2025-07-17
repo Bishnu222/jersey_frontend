@@ -48,8 +48,7 @@ export const useGetOneCategory = (id) => {
         ...query, category
     }
 }
-// id = "123" -> !!id true
-// id = undefined, id = null -> !!id false
+
 export const useUpdateOneCategory = () => {
     const queryClient = useQueryClient()
     return useMutation(

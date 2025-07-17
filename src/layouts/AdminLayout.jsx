@@ -65,8 +65,10 @@ export default function AdminLayout() {
   const navLinks = [
     { to: "/admin/users", label: "Users" },
     { to: "/admin/product", label: "Products" },
+    {to:"/admin/addProduct",label:"AddProduct"},
     { to: "/admin/category", label: "Categories" },
     { to: "/admin/category/create", label: "Create Category" },
+
     
   ];
 
