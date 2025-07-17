@@ -8,17 +8,13 @@ import {
 } from "../../services/admin/userService";
 import { toast } from "react-toastify";
 
-const extractErrorMessage = (error) => {
-  return (
-    error?.response?.data?.message || error?.message || "An unexpected error occurred"
-  );
-};
+const extractErrorMessage = (error) =>
+  error?.response?.data?.message || error?.message || "An unexpected error occurred";
 
 export const useCreateUser = (options = {}) => {
   const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: createUserService,
+  return useMutation(createUserService, {
     onSuccess: (data) => {
       toast.success(data?.message || "User created successfully");
       queryClient.invalidateQueries(["admin_user"]);
@@ -34,7 +30,7 @@ export const useCreateUser = (options = {}) => {
 export const useAdminUser = () => {
   const query = useQuery({
     queryKey: ["admin_user"],
-    queryFn: () => getAllUserService().then((res) => res.data || []),
+    queryFn: () => getAllUserService(),
   });
 
   const users = query.data || [];
@@ -47,7 +43,7 @@ export const useAdminUser = () => {
 export const useGetUserById = (id) => {
   return useQuery({
     queryKey: ["admin_user", id],
-    queryFn: () => getUserByIdService(id).then((res) => res.data),
+    queryFn: () => getUserByIdService(id),
     enabled: !!id,
   });
 };
@@ -55,8 +51,7 @@ export const useGetUserById = (id) => {
 export const useUpdateUser = (options = {}) => {
   const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: updateUserService,
+  return useMutation(updateUserService, {
     onSuccess: (data) => {
       toast.success(data?.message || "User updated successfully");
       queryClient.invalidateQueries(["admin_user"]);
@@ -72,8 +67,7 @@ export const useUpdateUser = (options = {}) => {
 export const useDeleteUser = () => {
   const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: deleteUserService,
+  return useMutation(deleteUserService, {
     onSuccess: () => {
       toast.success("User deleted successfully");
       queryClient.invalidateQueries(["admin_user"]);

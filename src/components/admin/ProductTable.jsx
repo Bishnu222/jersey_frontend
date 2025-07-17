@@ -1,11 +1,14 @@
-import React from "react";
-import { useAdminProduct, useDeleteProduct } from "../../hooks/admin/useAdminProduct";
+import React, { useState } from "react";
+import {
+  useAdminProduct,
+  useDeleteProduct,
+  useUpdateProduct,
+} from "../../hooks/admin/useAdminProduct";
 import "./ProductTable.css";
 
 const getImageUrl = (filename) => {
-  if (!filename) return "";
   const BASE_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5050";
-  return `${BASE_URL}/uploads/${filename}`;
+  return filename ? `${BASE_URL}/uploads/${filename}` : "";
 };
 
 export default function ProductTable() {
@@ -24,65 +27,112 @@ export default function ProductTable() {
   } = useAdminProduct();
 
   const { mutate: deleteProduct } = useDeleteProduct();
+  const { mutate: updateProduct, isLoading: isUpdating } = useUpdateProduct();
 
-  const handleSearch = (e) => {
-    setPageNumber(1);
-    setSearch(e.target.value);
+  // State to handle editing
+  const [editingProduct, setEditingProduct] = useState(null);
+  const [editForm, setEditForm] = useState({
+    team: "",
+    type: "",
+    size: "",
+    price: "",
+  });
+
+  // Open edit form modal with prefilled data
+  const openEditForm = (product) => {
+    setEditingProduct(product);
+    setEditForm({
+      team: product.team || "",
+      type: product.type || "",
+      size: product.size || "",
+      price: product.price || "",
+    });
   };
 
-  const handlePrev = () => {
-    if (canPreviousPage) setPageNumber((prev) => prev - 1);
+  // Close edit form modal
+  const closeEditForm = () => {
+    setEditingProduct(null);
   };
 
-  const handleNext = () => {
-    if (canNextPage) setPageNumber((prev) => prev + 1);
+  // Handle edit input changes
+  const handleEditChange = (e) => {
+    const { name, value } = e.target;
+    setEditForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this product?")) {
-      deleteProduct(id, {
+  // Submit edited data
+  const submitEdit = (e) => {
+    e.preventDefault();
+    if (!editingProduct) return;
+
+    const updatedData = {
+      ...editForm,
+      price: Number(editForm.price),
+    };
+
+    updateProduct(
+      { id: editingProduct._id, data: updatedData },
+      {
         onSuccess: () => {
-          alert("Product deleted successfully");
+          alert("Product updated!");
+          closeEditForm();
           refetch();
         },
         onError: (err) => {
-          alert(err.message || "Failed to delete product");
+          alert(err?.response?.data?.message || "Failed to update");
+        },
+      }
+    );
+  };
+
+  const handleDelete = (id) => {
+    if (window.confirm("Delete this product?")) {
+      deleteProduct(id, {
+        onSuccess: () => {
+          alert("Deleted");
+          refetch();
+        },
+        onError: (err) => {
+          alert(err?.response?.data?.message || "Error deleting");
         },
       });
     }
   };
 
-  if (isPending) return <p className="loading-message">Loading...</p>;
-  if (error) return <p className="error-message">Error: {error.message}</p>;
+  if (isPending) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <div className="product-table-container">
-      <h2 className="product-table-title">Product Management</h2>
+      <h2>Product Management</h2>
 
       <div className="product-controls">
-        <div className="control-group">
+        <div>
           <label>Show</label>
           <select
-            className="product-select"
             value={pagination.limit || 10}
             onChange={(e) => setPageSize(Number(e.target.value))}
+            className="product-select"
           >
-            {[5, 10, 20].map((val) => (
-              <option key={val} value={val}>
-                {val}
+            {[5, 10, 20].map((n) => (
+              <option key={n} value={n}>
+                {n}
               </option>
             ))}
           </select>
         </div>
 
-        <div className="control-group">
+        <div>
           <label>Search:</label>
           <input
             type="text"
-            className="product-search"
-            placeholder="Search by team or type..."
             value={search || ""}
-            onChange={handleSearch}
+            onChange={(e) => {
+              setPageNumber(1);
+              setSearch(e.target.value);
+            }}
+            placeholder="Search team or type..."
+            className="product-search"
           />
         </div>
       </div>
@@ -94,7 +144,7 @@ export default function ProductTable() {
             <th>Team</th>
             <th>Type</th>
             <th>Size</th>
-            <th>Price (Rs)</th>
+            <th>Price</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -106,34 +156,30 @@ export default function ProductTable() {
               </td>
             </tr>
           ) : (
-            products.map((product) => (
-              <tr key={product._id}>
+            products.map((p) => (
+              <tr key={p._id}>
                 <td>
-                  {product.productImage ? (
+                  {p.productImage ? (
                     <img
-                      src={getImageUrl(product.productImage)}
-                      alt={product.team + " jersey"}
+                      src={getImageUrl(p.productImage)}
+                      alt="jersey"
                       className="product-image"
-                      style={{ width: 100, height: 100, objectFit: "cover" }}
                     />
                   ) : (
-                    "No Image"
+                    "No image"
                   )}
                 </td>
-                <td>{product.team}</td>
-                <td>{product.type}</td>
-                <td>{product.size}</td>
-                <td>Rs. {product.price}</td>
-                <td>
-                  <button
-                    className="edit-btn"
-                    onClick={() => alert("Edit not implemented")}
-                  >
+                <td>{p.team}</td>
+                <td>{p.type}</td>
+                <td>{p.size}</td>
+                <td>Rs. {p.price}</td>
+                <td className="product-actions">
+                  <button className="edit-btn" onClick={() => openEditForm(p)}>
                     Edit
                   </button>
                   <button
                     className="delete-btn"
-                    onClick={() => handleDelete(product._id)}
+                    onClick={() => handleDelete(p._id)}
                   >
                     Delete
                   </button>
@@ -145,16 +191,93 @@ export default function ProductTable() {
       </table>
 
       <div className="product-pagination">
-        <button onClick={handlePrev} disabled={!canPreviousPage}>
-          ⬅ Prev
+        <button
+          disabled={!canPreviousPage}
+          onClick={() => setPageNumber((n) => n - 1)}
+        >
+          Prev
         </button>
         <span>
           Page {pagination.page || 1} of {pagination.totalPages || 1}
         </span>
-        <button onClick={handleNext} disabled={!canNextPage}>
-          Next ➡
+        <button
+          disabled={!canNextPage}
+          onClick={() => setPageNumber((n) => n + 1)}
+        >
+          Next
         </button>
       </div>
+
+      {/* Edit Modal */}
+      {editingProduct && (
+        <div className="edit-modal-overlay">
+          <div className="edit-modal">
+            <h3>Edit Product</h3>
+            <form onSubmit={submitEdit}>
+              <label>
+                Team:
+                <input
+                  name="team"
+                  value={editForm.team}
+                  onChange={handleEditChange}
+                  required
+                  placeholder="Enter team name"
+                />
+              </label>
+              <label>
+                Type:
+                <input
+                  name="type"
+                  value={editForm.type}
+                  onChange={handleEditChange}
+                  required
+                  placeholder="Enter type"
+                />
+              </label>
+              <label>
+                Size:
+                <input
+                  name="size"
+                  value={editForm.size}
+                  onChange={handleEditChange}
+                  required
+                  placeholder="Enter size"
+                />
+              </label>
+              <label>
+                Price:
+                <input
+                  name="price"
+                  type="number"
+                  value={editForm.price}
+                  onChange={handleEditChange}
+                  required
+                  min="0"
+                  placeholder="Enter price"
+                />
+              </label>
+              <div className="edit-buttons">
+                <button
+                  type="submit"
+                  disabled={isUpdating}
+                  title="Save changes"
+                  className="btn-save"
+                >
+                  ✔ Save
+                </button>
+                <button
+                  type="button"
+                  onClick={closeEditForm}
+                  title="Cancel editing"
+                  className="btn-cancel"
+                >
+                  ✖ Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
