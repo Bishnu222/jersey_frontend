@@ -1,20 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { useAdminUser, useDeleteUser } from "../../hooks/admin/useAdminUser";
-import DeleteModel from "../DeleteModel";
 import { Link } from "react-router-dom";
-import './UserTable.css';
+import "./UserTable.css";
 
 export default function UserTable() {
   const { users, error, isLoading, isError } = useAdminUser();
-  const [deleteId, setDeleteId] = useState(null);
   const deleteUserMutation = useDeleteUser();
 
-  const handleConfirmDelete = () => {
-    deleteUserMutation.mutate(deleteId, {
-      onSuccess: () => setDeleteId(null),
-      onError: (err) => alert(err.message || "Failed to delete user"),
-    });
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      deleteUserMutation.mutate(id);
+    }
   };
+
+  if (isLoading) return <p className="info-text">Loading users...</p>;
+  if (isError) return <p className="error-text">Error: {error.message}</p>;
 
   return (
     <div className="user-table-container">
@@ -25,9 +25,6 @@ export default function UserTable() {
         </Link>
       </div>
 
-      {isLoading && <p className="info-text">Loading users...</p>}
-      {isError && <p className="error-text">Error: {error.message}</p>}
-
       {users.length === 0 ? (
         <p className="info-text text-center">No users found.</p>
       ) : (
@@ -37,32 +34,41 @@ export default function UserTable() {
               <div className="user-info">
                 <h3>{user.username}</h3>
                 <p>{user.email}</p>
-                <p className={`user-role ${user.role === "admin" ? "admin-role" : "user-role-text"}`}>
+                <p
+                  className={`user-role ${
+                    user.role === "admin" ? "admin-role" : "user-role-text"
+                  }`}
+                >
                   Role: {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
                 </p>
               </div>
+
               <div className="user-actions">
-                <Link to={`/admin/user/${user._id}`} className="action-btn view">View</Link>
-                <Link to={`/admin/user/${user._id}/edit`} className="action-btn edit">Edit</Link>
-                <button
-                  onClick={() => setDeleteId(user._id)}
-                  className="action-btn delete"
-                  disabled={deleteUserMutation.isLoading && deleteId === user._id}
+                {/* View button - navigates to user details page */}
+                <Link to={`/admin/user/${user._id}`} className="action-btn view">
+                  View
+                </Link>
+
+                {/* Edit button - navigates to user edit page */}
+                <Link
+                  to={`/admin/user/${user._id}/edit`}
+                  className="action-btn edit"
                 >
-                  {deleteUserMutation.isLoading && deleteId === user._id ? "Deleting..." : "Delete"}
+                  Edit
+                </Link>
+
+                {/* Delete button - immediate delete with confirmation */}
+                <button
+                  onClick={() => handleDelete(user._id)}
+                  className="action-btn delete"
+                  disabled={deleteUserMutation.isLoading}
+                >
+                  {deleteUserMutation.isLoading ? "Deleting..." : "Delete"}
                 </button>
               </div>
             </div>
           ))}
         </div>
-      )}
-
-      {deleteId && (
-        <DeleteModel
-          onClose={() => setDeleteId(null)}
-          onConfirm={handleConfirmDelete}
-          message="Are you sure you want to delete this user?"
-        />
       )}
     </div>
   );

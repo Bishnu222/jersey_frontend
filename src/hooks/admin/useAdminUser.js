@@ -14,7 +14,8 @@ const extractErrorMessage = (error) =>
 export const useCreateUser = (options = {}) => {
   const queryClient = useQueryClient();
 
-  return useMutation(createUserService, {
+  return useMutation({
+    mutationFn: createUserService,
     onSuccess: (data) => {
       toast.success(data?.message || "User created successfully");
       queryClient.invalidateQueries(["admin_user"]);
@@ -51,7 +52,8 @@ export const useGetUserById = (id) => {
 export const useUpdateUser = (options = {}) => {
   const queryClient = useQueryClient();
 
-  return useMutation(updateUserService, {
+  return useMutation({
+    mutationFn: updateUserService,
     onSuccess: (data) => {
       toast.success(data?.message || "User updated successfully");
       queryClient.invalidateQueries(["admin_user"]);
@@ -67,7 +69,8 @@ export const useUpdateUser = (options = {}) => {
 export const useDeleteUser = () => {
   const queryClient = useQueryClient();
 
-  return useMutation(deleteUserService, {
+  return useMutation({
+    mutationFn: deleteUserService,
     onSuccess: () => {
       toast.success("User deleted successfully");
       queryClient.invalidateQueries(["admin_user"]);

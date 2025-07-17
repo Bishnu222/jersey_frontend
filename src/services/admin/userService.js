@@ -1,52 +1,28 @@
-import {
-  createUserApi,
-  getAllUserApi,
-  deleteUserApi,
-  updateUserApi,
-  getUserByIdApi,
-} from "../../api/admin/userApi";
-
-export const createUserService = async (formData) => {
-  try {
-    const data = await createUserApi(formData);
-    return data;
-  } catch (err) {
-    throw new Error(err?.response?.data?.message || err?.message || "Failed to create user");
-  }
-};
+// services/admin/userService.js
+import { getAllUserApi, deleteUserApi, createUserApi, updateUserApi, getUserByIdApi } from "../../api/admin/userApi";
 
 export const getAllUserService = async () => {
-  try {
-    const data = await getAllUserApi();
-    return data;
-  } catch (err) {
-    throw new Error(err?.response?.data?.message || err?.message || "Failed to fetch users");
-  }
+  const response = await getAllUserApi();
+  // Assuming response shape: { success, data: usersArray, message }
+  return response.data;  // Return the users array directly
+};
+
+export const createUserService = async (formData) => {
+  const response = await createUserApi(formData);
+  return response;
 };
 
 export const getUserByIdService = async (id) => {
-  try {
-    const data = await getUserByIdApi(id);
-    return data;
-  } catch (err) {
-    throw new Error(err?.response?.data?.message || err?.message || "Failed to fetch user");
-  }
+  const response = await getUserByIdApi(id);
+  return response;
 };
 
 export const updateUserService = async ({ id, data }) => {
-  try {
-    const response = await updateUserApi({ id, data });
-    return response;
-  } catch (err) {
-    throw new Error(err?.response?.data?.message || err?.message || "Failed to update user");
-  }
+  const response = await updateUserApi({ id, data });
+  return response;
 };
 
 export const deleteUserService = async (id) => {
-  try {
-    const response = await deleteUserApi(id);
-    return response;
-  } catch (err) {
-    throw new Error(err?.response?.data?.message || err?.message || "Failed to delete user");
-  }
+  const response = await deleteUserApi(id);
+  return response;
 };
