@@ -16,10 +16,9 @@ import ViewCategory from '../pages/admin/ViewCategory';
 import UpdateCategory from '../pages/admin/UpdateCategory';
 import CreateUserForm from '../pages/admin/CreateUser.jsx';
 import AddProducts from '../pages/admin/AddProduct';
+import Notifications from "../pages/Notifications";
 import UserManagement from '../pages/admin/UserManagement';
 import Order from '../pages/Order';
-
-// New import for Admin Orders page
 import AdminOrdersPage from '../pages/admin/AdminOrdersPage';
 
 export default function AppRouter() {
@@ -36,6 +35,7 @@ export default function AppRouter() {
 
         <Route path='/normal/*' element={<NormalUserRoute />}>
           <Route path='order' element={<Order />} />
+          <Route path="notification" element={<Notifications />} />
           <Route path='*' element={<>404 Not Found</>} />
         </Route>
 
@@ -49,7 +49,6 @@ export default function AppRouter() {
           <Route path='users' element={<UserManagement />} />
           <Route path='users/create' element={<CreateUserForm />} />
 
-          {/* Added Admin Orders Page Route */}
           <Route path='orders' element={<AdminOrdersPage />} />
         </Route>
 
