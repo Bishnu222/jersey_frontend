@@ -1,3 +1,5 @@
+// src/services/admin/productService.js
+
 import {
   getAllProductApi,
   createProductApi,
@@ -5,6 +7,7 @@ import {
   updateProductApi,
 } from "../../api/admin/productApi";
 
+// Fetch all products (with optional params for filtering, pagination, etc.)
 export const getAllProductService = async (params) => {
   try {
     const response = await getAllProductApi(params);
@@ -14,6 +17,7 @@ export const getAllProductService = async (params) => {
   }
 };
 
+// Create a new product with form data (e.g., including image upload)
 export const createProductService = async (formData) => {
   try {
     const response = await createProductApi(formData);
@@ -23,6 +27,7 @@ export const createProductService = async (formData) => {
   }
 };
 
+// Delete a product by ID
 export const deleteProductService = async (id) => {
   try {
     const response = await deleteOneProductApi(id);
@@ -32,6 +37,7 @@ export const deleteProductService = async (id) => {
   }
 };
 
+// Update a product by ID, data contains updated fields
 export const updateProductService = async ({ id, data }) => {
   try {
     const response = await updateProductApi(id, data);
