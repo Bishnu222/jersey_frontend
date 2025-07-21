@@ -1,4 +1,23 @@
-import axios from "/src/api/api.js"; 
+import api from "./api";
 
-export const registerUserApi = (data) => axios.post("/auth/register", data); //  sends POST request to register
-export const loginUserApi = (data) => axios.post("/auth/login", data);       //  sends POST request to login
+// Register user (with possible file upload)
+export const registerUserApi = (formData) =>
+  api.post("/auth/register", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+// Login user
+export const loginUserApi = (data) =>
+  api.post("/auth/login", data);
+
+// Get user info by ID (protected route, token auto-attached)
+export const getUserByIdApi = (id) =>
+  api.get(`/users/${id}`).then(res => res.data.data || res.data);
+
+// Update user info (with possible file upload)
+export const updateUserApi = (id, formData) =>
+  api.put(`/users/${id}`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  }).then(res => res.data);
