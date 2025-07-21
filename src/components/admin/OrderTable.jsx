@@ -1,4 +1,4 @@
-// src/components/admin/OrderTable.jsx
+
 
 import React, { useEffect, useState } from "react";
 import { getAllOrdersService } from "../../services/orderService"; // Adjust path if needed

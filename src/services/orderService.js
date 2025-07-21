@@ -1,62 +1,31 @@
-import { 
-  getAllOrdersApi,
-  getOrdersByUserApi,
-  createOrderApi,
-  updateOrderStatusApi,
-  deleteOrderApi 
-} from "../api/orderApi";
+import axios from "../api/api.js"; // Adjust this path to your axios instance
 
-//  Create a new order
+// Create a new order
 export const createOrderService = async (data) => {
-  try {
-    const response = await createOrderApi(data);
-    return response.data;
-  } catch (error) {
-    console.error("Create order failed:", error);
-    throw error;
-  }
+  const response = await axios.post("/orders", data);
+  return response.data;
 };
 
-//  Fetch all orders
+// Fetch all orders (admin/user view)
 export const getAllOrdersService = async () => {
-  try {
-    const response = await getAllOrdersApi();
-    return response.data;
-  } catch (error) {
-    console.error("Fetch all orders failed:", error);
-    throw error;
-  }
+  const response = await axios.get("/orders");
+  return response.data;
 };
 
-//  Fetch orders by user
+// Fetch orders by a specific user
 export const getOrdersByUserService = async (userId) => {
-  try {
-    const response = await getOrdersByUserApi(userId);
-    return response.data;
-  } catch (error) {
-    console.error(`Fetch orders for user ${userId} failed:`, error);
-    throw error;
-  }
+  const response = await axios.get(`/orders/user/${userId}`);
+  return response.data;
 };
 
-//  Update order status
+// Update order status
 export const updateOrderStatusService = async ({ orderId, status }) => {
-  try {
-    const response = await updateOrderStatusApi(orderId, status);
-    return response.data;
-  } catch (error) {
-    console.error(`Update order ${orderId} failed:`, error);
-    throw error;
-  }
+  const response = await axios.patch(`/orders/${orderId}`, { status });
+  return response.data;
 };
 
-//  Delete order
+// Delete order
 export const deleteOrderService = async (orderId) => {
-  try {
-    const response = await deleteOrderApi(orderId);
-    return response.data;
-  } catch (error) {
-    console.error(`Delete order ${orderId} failed:`, error);
-    throw error;
-  }
+  const response = await axios.delete(`/orders/${orderId}`);
+  return response.data;
 };

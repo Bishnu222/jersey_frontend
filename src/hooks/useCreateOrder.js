@@ -1,5 +1,3 @@
-// ORDER HOOKS - jerseyHub
-
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   createOrderService,
@@ -10,7 +8,7 @@ import {
 } from "../services/orderService";
 import { toast } from "react-toastify";
 
-// Create Order
+// Create Order Hook
 export const useCreateOrder = (onSuccess) => {
   return useMutation({
     mutationFn: createOrderService,
@@ -24,7 +22,7 @@ export const useCreateOrder = (onSuccess) => {
   });
 };
 
-// Get All Orders
+// Fetch All Orders Hook
 export const useFetchAllOrders = () => {
   return useQuery({
     queryKey: ["orders"],
@@ -32,7 +30,7 @@ export const useFetchAllOrders = () => {
   });
 };
 
-// Get Orders by User
+// Fetch Orders by User Hook
 export const useFetchOrdersByUser = (userId) => {
   return useQuery({
     queryKey: ["orders", "user", userId],
@@ -41,9 +39,10 @@ export const useFetchOrdersByUser = (userId) => {
   });
 };
 
-// Update Order Status
+// Update Order Status Hook
 export const useUpdateOrderStatus = () => {
   const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: updateOrderStatusService,
     onSuccess: () => {
@@ -56,7 +55,7 @@ export const useUpdateOrderStatus = () => {
   });
 };
 
-// Delete Order
+// Delete Order Hook
 export const useDeleteOrder = () => {
   const queryClient = useQueryClient();
 
@@ -65,7 +64,7 @@ export const useDeleteOrder = () => {
     onSuccess: () => {
       toast.success("Order deleted successfully!");
       queryClient.invalidateQueries({ queryKey: ["orders"] });
-      queryClient.invalidateQueries({ queryKey: ["orders", "user"] }); // safer pattern
+      queryClient.invalidateQueries({ queryKey: ["orders", "user"] }); // safer to invalidate both
     },
     onError: () => {
       toast.error("Failed to delete order.");

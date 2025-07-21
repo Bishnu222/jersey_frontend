@@ -68,6 +68,7 @@ export default function AdminLayout() {
     {to:"/admin/addProduct",label:"AddProduct"},
     { to: "/admin/category", label: "Categories" },
     { to: "/admin/category/create", label: "Create Category" },
+    { to: "/admin/orders", label: "Orders" },
 
     
   ];
