@@ -5,7 +5,7 @@ import {
   RefreshCw,
   Trash2,
 } from "lucide-react";
-import { getBackenedImageUrl } from "../../utils/backend-image";
+import { getBackendImageUrl } from "../../utils/backendImage";
 
 const statusConfig = {
   pending: {

@@ -1,6 +1,6 @@
 "use client"
 import { X, Plus, Minus, Trash2 } from "lucide-react"
-import { getBackendImageUrl } from '../utils/backend-image'
+import { getBackendImageUrl } from '../../utils/backendImage';
 
 export default function UserSidebar({
     cart,

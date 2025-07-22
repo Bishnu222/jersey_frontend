@@ -1,7 +1,7 @@
 import React from 'react'
 import { useGetOneCategory } from '../../hooks/admin/useAdminCategory'
 import { useParams } from "react-router-dom"
-import { getBackenedImageUrl } from '../../utils/backend-image'
+import { getBackendImageUrl } from "../../utils/backendImage";
 
 export default function ViewCategory() {
     const { id } = useParams()

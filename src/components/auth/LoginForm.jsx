@@ -30,7 +30,7 @@ export default function LoginForm() {
     if (isSuccess && data?.token) {
       // Save token or navigate
       localStorage.setItem('token', data.token); // Optional
-      navigate('/dashboard'); // Redirect after login
+      navigate('/normal/dashboard'); // Redirect after login
     }
   }, [isSuccess, data, navigate]);
 

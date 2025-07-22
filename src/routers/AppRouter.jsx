@@ -19,6 +19,8 @@ import Notifications from "../pages/Notification";
 import UserManagement from '../pages/admin/UserManagement';
 import Order from '../pages/Order';
 import AdminOrdersPage from '../pages/admin/AdminOrdersPage';
+import UserDashboard from '../pages/UserDashboard';
+import Products from '../pages/Products';
 
 export default function AppRouter() {
   return (
@@ -26,6 +28,7 @@ export default function AppRouter() {
       <Routes>
         <Route element={<MainLayout />}>
           <Route path='/' element={<Homepage />} />
+          <Route path='/products' element={<Products />} />
           <Route element={<GuestRoute />}>
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
@@ -33,6 +36,7 @@ export default function AppRouter() {
         </Route>
 
         <Route path='/normal/*' element={<NormalUserRoute />}>
+          <Route path='dashboard' element={<UserDashboard />} />
           <Route path='order' element={<Order />} />
           <Route path="notification" element={<Notifications />} />
           <Route path='*' element={<>404 Not Found</>} />

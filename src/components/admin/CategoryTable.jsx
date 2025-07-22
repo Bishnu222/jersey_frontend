@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './CategoryTable.css';
 import { useAdminCategory, useDeleteOneCategory } from '../../hooks/admin/useAdminCategory';
-import { getBackenedImageUrl } from '../../utils/backend-image';
+import { getBackendImageUrl } from '../../utils/backendImage';
 import { Link } from 'react-router-dom';
 import DeleteModal from '../DeleteModal';
 
@@ -62,7 +62,7 @@ export default function CategoryTable() {
                 <td data-label="Image">
                   <img
                     className="category-image"
-                    src={getBackenedImageUrl(row.filepath)}
+                    src={getBackendImageUrl(row.filepath)}
                     alt={row.name || 'Category'}
                     onError={(e) => (e.target.src = '/fallback-image.png')}
                   />

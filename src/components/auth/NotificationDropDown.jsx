@@ -18,7 +18,7 @@ import {
 import NotificationsIcon from "@mui/icons-material/Notifications"
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord"
 import { Link } from "react-router-dom"
-import { useNotifications } from "../hooks/useNotification"
+import { useNotifications } from "./../../hooks/useNotification";
 
 export default function NotificationDropdown({ userId }) {
   const [anchorEl, setAnchorEl] = useState(null)
