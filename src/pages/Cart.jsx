@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useCart } from '../auth/CartContext';
 import { getBackendImageUrl } from '../utils/backendImage';
 import { Plus, Minus, Trash2 } from 'lucide-react';
@@ -6,14 +6,19 @@ import { useNavigate } from 'react-router-dom';
 import PaymentMethodModal from '../components/payment/PaymentMethodModal';
 import EsewaPayment from '../components/payment/EsewaPayment';
 import footballImg from '../assets/home.png'; // Use your football/jersey image here
+import { useCreateOrder } from '../hooks/useCreateOrder';
+import { AuthContext } from '../auth/AuthProvider';
+import { toast } from 'react-toastify';
 
 export default function Cart() {
-  const { cart, removeFromCart, updateQuantity, clearCart, onCheckout } = useCart();
+  const { cart, removeFromCart, updateQuantity, clearCart } = useCart();
   const navigate = useNavigate();
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState(null);
   const [cashSuccess, setCashSuccess] = useState(false);
   const [cashLoading, setCashLoading] = useState(false);
+  const { user } = useContext(AuthContext);
+  const createOrder = useCreateOrder(() => clearCart());
 
   const subtotal = cart.reduce((total, product) => {
     return total + product.price * product.quantity;
@@ -30,10 +35,40 @@ export default function Cart() {
 
   const handleCashConfirm = () => {
     setCashLoading(true);
+    // Defensive check for userId
+    if (!user?._id) {
+      toast.error('Cannot place order: user is not logged in or userId is missing.');
+      setCashLoading(false);
+      return;
+    }
+    // Create order in backend
+    const orderPayload = {
+      userId: user._id,
+      products: cart.map(p => ({
+        name: p.name || p.team,
+        quantity: p.quantity,
+        price: p.price,
+        productImage: p.productImage,
+      })),
+      total: subtotal,
+      status: 'pending',
+      date: new Date().toISOString(),
+    };
+    console.log('Creating order with payload:', orderPayload);
+    createOrder.mutate(orderPayload, {
+      onError: (error) => {
+        const backendMsg = error?.response?.data?.message;
+        toast.error('Order creation failed: ' + (backendMsg || error?.message || 'Unknown error'));
+        console.error('Order creation error:', error);
+        setCashLoading(false);
+      },
+      onSuccess: (data) => {
+        console.log('Order created successfully:', data);
+      }
+    });
     setTimeout(() => {
       setCashLoading(false);
       setCashSuccess(true);
-      onCheckout(); // Optionally clear cart
     }, 1200);
   };
 

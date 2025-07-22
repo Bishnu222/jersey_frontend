@@ -145,7 +145,7 @@ export default function AdminLayout() {
   }
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen" style={{ background: 'linear-gradient(135deg, #a7ffeb 0%, #e0f7fa 50%, #b2f7b8 100%)' }}>
       {/* Sidebar */}
       <aside className="w-64 shadow-lg p-4 admin-sidebar">
         <img src={logo} alt="Logo" className="admin-logo" />
