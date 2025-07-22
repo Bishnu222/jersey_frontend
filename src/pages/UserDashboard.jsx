@@ -1,4 +1,4 @@
-import React, { useContext, useState, useMemo } from "react";
+import React, { useContext, useState, useMemo, useEffect } from "react";
 import { AuthContext } from "../auth/AuthProvider";
 import { useAdminProduct } from "../hooks/admin/useAdminProduct";
 import { useAdminCategory } from "../hooks/admin/useAdminCategory";
@@ -39,6 +39,19 @@ export default function UserDashboard() {
   // Product search and category filter state
   const [productSearch, setProductSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+
+  // Highlight effect for last added cart item
+  const [highlightedId, setHighlightedId] = useState(null);
+  const handleAddToCart = (jersey) => {
+    addToCart(jersey);
+    toast.success("Added to cart!");
+  };
+  useEffect(() => {
+    if (highlightedId) {
+      const timeout = setTimeout(() => setHighlightedId(null), 1200);
+      return () => clearTimeout(timeout);
+    }
+  }, [highlightedId]);
 
   const handleProfileEdit = () => {
     setProfileForm({ username: user?.username || "", email: user?.email || "", address: user?.address || "" });
@@ -156,12 +169,13 @@ export default function UserDashboard() {
       <div className="flex justify-end items-center px-6 pt-4 gap-6">
         <div className="flex items-center gap-4">
           <div className="relative">
-            <button onClick={() => setSidebarOpen(true)} className="relative">
+            <button className="relative">
               <ShoppingCart className="w-6 h-6 text-gray-700 dark:text-white" />
               {cart.length > 0 && (
                 <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs rounded-full px-1.5 py-0.5">{cart.length}</span>
               )}
             </button>
+            {/* Cart preview dropdown (optional, add highlight here if you have a preview) */}
           </div>
           <NotificationDropdown userId={user?._id} />
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow px-4 py-2 flex flex-col items-start min-w-[180px]">
@@ -244,7 +258,7 @@ export default function UserDashboard() {
                     Rs {jersey.price?.toLocaleString()}
                   </span>
                   <button
-                    onClick={() => addToCart(jersey)}
+                    onClick={() => handleAddToCart(jersey)}
                     className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded flex items-center gap-1"
                   >
                     <Plus className="w-4 h-4" /> Add
@@ -293,7 +307,7 @@ export default function UserDashboard() {
         </div>
       </div>
       {/* Cart Sidebar */}
-      <UserSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} cart={cart} removeFromCart={removeFromCart} updateQuantity={updateQuantity} clearCart={clearCart} onCheckout={onCheckout} />
+      {/* <UserSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} cart={cart} removeFromCart={removeFromCart} updateQuantity={updateQuantity} clearCart={clearCart} onCheckout={onCheckout} highlightedId={highlightedId} /> */}
       <OrderDetailsModal order={selectedOrder} isOpen={detailsModalOpen} onClose={() => setDetailsModalOpen(false)} />
       {/* <DeleteModal isOpen={deleteModalOpen} onClose={() => setDeleteModalOpen(false)} onConfirm={confirmDelete} title="Cancel Order" description="Are you sure you want to cancel this order? This action cannot be undone." /> */}
       {profileModalOpen && (

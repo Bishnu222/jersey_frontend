@@ -35,7 +35,25 @@ export default function Header() {
             Home
           </NavLink>
 
-          {!user ? (
+          {user ? (
+            <>
+              <NavLink to="/products" className={({ isActive }) => isActive ? 'active' : ''} onClick={() => setMobileMenuOpen(false)}>
+                Products
+              </NavLink>
+              <NavLink to="/normal/cart" className={({ isActive }) => isActive ? 'active' : ''} onClick={() => setMobileMenuOpen(false)}>
+                Cart
+              </NavLink>
+              <NavLink to="/normal/dashboard" className={({ isActive }) => isActive ? 'active' : ''} onClick={() => setMobileMenuOpen(false)}>
+                Profile
+              </NavLink>
+              <NavLink to="/about" className={({ isActive }) => isActive ? 'active' : ''} onClick={() => setMobileMenuOpen(false)}>
+                About Us
+              </NavLink>
+              <button className="logout-button" onClick={() => { logout(); setMobileMenuOpen(false); }}>
+                Logout
+              </button>
+            </>
+          ) : (
             <>
               <NavLink to="/login" className={({ isActive }) => isActive ? 'active' : ''} onClick={() => setMobileMenuOpen(false)}>
                 Login
@@ -43,12 +61,6 @@ export default function Header() {
               <NavLink to="/register" className={({ isActive }) => isActive ? 'active' : ''} onClick={() => setMobileMenuOpen(false)}>
                 Register
               </NavLink>
-            </>
-          ) : (
-            <>
-              <button className="logout-button" onClick={() => { logout(); setMobileMenuOpen(false); }}>
-                Logout
-              </button>
             </>
           )}
         </nav>

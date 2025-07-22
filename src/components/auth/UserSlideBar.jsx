@@ -1,6 +1,7 @@
 "use client"
 import { X, Plus, Minus, Trash2 } from "lucide-react"
 import { getBackendImageUrl } from '../../utils/backendImage';
+import React, { useEffect, useState } from 'react';
 
 export default function UserSidebar({
     cart,
@@ -9,7 +10,8 @@ export default function UserSidebar({
     removeFromCart,
     updateQuantity,
     clearCart,
-    onCheckout
+    onCheckout,
+    highlightedId // new prop
 }) {
     const subtotal = cart.reduce((total, product) => {
         const addonsTotal = (product.addons || []).reduce(
@@ -18,6 +20,8 @@ export default function UserSidebar({
         );
         return total + product.price * product.quantity + addonsTotal;
     }, 0);
+
+    // Remove local highlight state, use prop instead
 
     return (
         <>
@@ -43,7 +47,7 @@ export default function UserSidebar({
                         <p className="text-gray-400 text-center mt-10">Your cart is empty.</p>
                     ) : (
                         cart.map((product) => (
-                            <div key={product._id} className="border-b border-gray-600 pb-4">
+                            <div key={product._id} className={`border-b border-gray-600 pb-4 transition-all duration-500 ${highlightedId === product._id ? 'bg-yellow-100/30 shadow-lg scale-[1.03]' : ''}`}>
                                 <div className="flex gap-4">
                                     <img
                                         src={getBackendImageUrl(product.productImage)}

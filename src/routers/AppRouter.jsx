@@ -21,6 +21,7 @@ import Order from '../pages/Order';
 import AdminOrdersPage from '../pages/admin/AdminOrdersPage';
 import UserDashboard from '../pages/UserDashboard';
 import Products from '../pages/Products';
+import Cart from '../pages/Cart';
 
 export default function AppRouter() {
   return (
@@ -38,6 +39,7 @@ export default function AppRouter() {
         <Route path='/normal/*' element={<NormalUserRoute />}>
           <Route path='dashboard' element={<UserDashboard />} />
           <Route path='order' element={<Order />} />
+          <Route path='cart' element={<Cart />} />
           <Route path="notification" element={<Notifications />} />
           <Route path='*' element={<>404 Not Found</>} />
         </Route>

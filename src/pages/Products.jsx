@@ -2,8 +2,9 @@ import React, { useState, useMemo } from 'react';
 import { useAdminProduct } from '../hooks/admin/useAdminProduct';
 import { useAdminCategory } from '../hooks/admin/useAdminCategory';
 import { getBackendImageUrl } from '../utils/backendImage';
-import { Plus, Shirt, LogOut } from 'lucide-react';
+import { Plus, Shirt } from 'lucide-react';
 import { useCart } from '../auth/CartContext';
+import { toast } from 'react-toastify';
 
 export default function Products() {
   const { products, isLoading: loadingProducts } = useAdminProduct();
@@ -11,12 +12,6 @@ export default function Products() {
   const { addToCart } = useCart();
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
-
-  // Logout handler (clear localStorage and reload)
-  const handleLogout = () => {
-    localStorage.clear();
-    window.location.href = '/login';
-  };
 
   const filteredProducts = useMemo(() => {
     let filtered = Array.isArray(products) ? products : [];
@@ -34,22 +29,13 @@ export default function Products() {
     return filtered;
   }, [products, selectedCategory, search]);
 
+  const handleAddToCart = (jersey) => {
+    addToCart(jersey);
+    toast.success('Added to cart!');
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-800 via-green-900 to-black py-0 px-0">
-      {/* Football Shirts Header */}
-      <header className="w-full flex items-center justify-between px-8 py-5 bg-green-900 shadow-lg">
-        <div className="flex items-center gap-3">
-          <span className="text-4xl">⚽</span>
-          <span className="text-2xl md:text-3xl font-extrabold text-white tracking-wider">Football Shirts</span>
-        </div>
-        <button
-          onClick={handleLogout}
-          className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold px-5 py-2 rounded-lg shadow transition"
-        >
-          <LogOut size={20} /> Logout
-        </button>
-      </header>
-
       {/* Explore Jerseys Title */}
       <div className="text-center mt-10 mb-8">
         <h1 className="text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg inline-flex items-center gap-3">
@@ -98,7 +84,7 @@ export default function Products() {
                 <img
                   src={getBackendImageUrl(jersey.productImage)}
                   alt={jersey.name}
-                  className="w-full h-44 object-cover rounded-xl border-2 border-green-800 mt-6 mb-3 shadow-md"
+                  className="w-full h-44 object-contain bg-white rounded-xl border-2 border-green-800 mt-6 mb-3 shadow-md"
                 />
                 <h2 className="text-lg font-bold text-green-900 text-center mb-1">
                   {jersey.name || jersey.team}
@@ -111,7 +97,7 @@ export default function Products() {
                     Rs {jersey.price?.toLocaleString()}
                   </span>
                   <button
-                    onClick={() => addToCart(jersey)}
+                    onClick={() => handleAddToCart(jersey)}
                     className="bg-green-700 hover:bg-green-900 text-white px-4 py-2 rounded-full flex items-center gap-1 font-semibold shadow-lg group-hover:bg-yellow-400 group-hover:text-green-900 transition"
                   >
                     <Plus className="w-5 h-5" /> Add

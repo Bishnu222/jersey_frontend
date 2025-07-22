@@ -7,11 +7,10 @@ const AuthContextProvider=({children}) =>{
     const [ loading, setLoading ] = useState(true)
 
     const login=(userData,token) =>{
-        setLoading(true)
         localStorage.setItem("token",token)
         localStorage.setItem("user",JSON.stringify(userData))
         setUser(userData)
-        
+        setLoading(false) // Ensure loading is set to false after login
     }
     const logout=()=>{
         setLoading(true)

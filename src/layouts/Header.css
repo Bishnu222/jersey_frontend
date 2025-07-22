@@ -14,11 +14,12 @@ header {
   display: flex;
   justify-content: space-between; /* Changed to space-between to allow left-right content */
   align-items: center;
+  gap: 48px; /* Add more gap between logo/search/nav */
 }
 
 .logo {
-  height: 80px;
-  max-height: 100px;
+  height: 110px;
+  max-height: 140px;
   width: auto;
   object-fit: contain;
   padding: 1px;
@@ -56,6 +57,7 @@ header {
   border-bottom: 1px solid white;
   padding-bottom: 4px;
   width: 350px;
+  margin-right: 48px; /* Add more space after search box */
 }
 
 .search-box input {
@@ -81,7 +83,7 @@ header {
 /* Navigation links */
 nav {
   display: flex;
-  gap: 20px;
+  gap: 36px; /* Increase gap between nav links */
   align-items: center;
 }
 
@@ -115,5 +117,24 @@ nav span {
   display: flex;
   align-items: center;
   gap: 20px;
+}
+
+.logout-button {
+  background-color: #e3342f;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  margin-left: 32px; /* More space before logout */
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  font-size: 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.logout-button:hover {
+  background-color: #c82333;
+  color: #fff;
 }
 
