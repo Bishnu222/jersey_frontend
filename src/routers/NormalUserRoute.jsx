@@ -11,15 +11,8 @@ export default function NormalUserRoute() {
 
     if(!user) return <Navigate to ="/login" replace />
 
-    // replace will note save history
-
-    if(user.role !=="normal") return <Navigate to ="/" replace />
+    // Remove role check so all logged-in users can access
+    // if(user.role !=="normal") return <Navigate to ="/" replace />
 
     return <Outlet />
-
-
-
-  return (
-    <div>NormalUserRoute</div>
-  )
 }
