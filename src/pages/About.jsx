@@ -13,7 +13,7 @@ export default function About() {
       <div className="mt-8">
         <h2 className="text-2xl font-bold text-green-700 mb-2">Contact Us</h2>
         <p>Email: <a href="mailto:support@jerseyshop.com" className="text-blue-600 hover:underline">support@jerseyshop.com</a></p>
-        <p>Phone: +1-800-FOOTBALL</p>
+        <p>Phone: +977-9800000000</p>
       </div>
       <div className="mt-10 text-gray-400 text-sm">&copy; {new Date().getFullYear()} JerseyShop. All rights reserved.</div>
     </div>

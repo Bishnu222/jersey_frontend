@@ -8,7 +8,7 @@ export default function MainLayout() {
     <div>
         <Header/>
         <Outlet/>
-        <Footer />
+        {/* Removed <Footer /> to prevent double footer on pages that include their own footer */}
     </div>
   )
 }

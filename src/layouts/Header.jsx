@@ -35,6 +35,9 @@ export default function Header() {
               <NavLink to="/normal/dashboard" className={({ isActive }) => isActive ? 'active' : ''} onClick={() => setMobileMenuOpen(false)}>
                 Profile
               </NavLink>
+              <NavLink to="/normal/order" className={({ isActive }) => isActive ? 'active' : ''} onClick={() => setMobileMenuOpen(false)}>
+                My Orders
+              </NavLink>
               <NavLink to="/about" className={({ isActive }) => isActive ? 'active' : ''} onClick={() => setMobileMenuOpen(false)}>
                 About Us
               </NavLink>

@@ -43,17 +43,23 @@ export default function MyOrderCard({ order, onDelete }) {
 
   return (
     <article
-      className="p-6 border border-slate-300 dark:border-gray-600 rounded-2xl shadow-xl bg-gradient-to-br from-white to-slate-100 dark:from-gray-900 dark:to-gray-800 hover:shadow-2xl transition-transform hover:scale-[1.01]"
+      className="p-0 border-2 border-green-600 rounded-2xl shadow-lg bg-white relative overflow-hidden hover:shadow-2xl transition-transform hover:scale-[1.01]"
       aria-label={`Order ${order._id}`}
     >
+      {/* Football SVG background pattern */}
+      <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="40" cy="40" r="30" stroke="#22c55e" strokeWidth="4" fill="#bbf7d0" />
+        <rect x="120" y="120" width="50" height="50" rx="12" stroke="#22c55e" strokeWidth="4" fill="#bbf7d0" />
+        <circle cx="160" cy="60" r="18" stroke="#22c55e" strokeWidth="3" fill="#bbf7d0" />
+        <rect x="20" y="120" width="30" height="30" rx="8" stroke="#22c55e" strokeWidth="3" fill="#bbf7d0" />
+      </svg>
       {/* Header */}
-      <header className="flex flex-col md:flex-row md:items-center md:justify-between mb-5">
-        <div className="text-indigo-800 dark:text-indigo-300 font-extrabold text-lg tracking-wide">
+      <header className="flex flex-col md:flex-row md:items-center md:justify-between mb-0 rounded-t-2xl bg-green-600 text-white px-6 py-3 relative z-10">
+        <div className="font-extrabold text-lg tracking-wide">
           Order #{order._id.slice(-8)}
         </div>
-
-        <div className="flex items-center space-x-4 mt-2 md:mt-0 text-sm text-gray-600 dark:text-gray-300">
-          <time dateTime={order.date}>
+        <div className="flex items-center space-x-4 mt-2 md:mt-0 text-sm">
+          <time dateTime={order.date} className="text-green-100">
             {new Date(order.date).toLocaleString("en-GB", {
               day: "2-digit",
               month: "short",
@@ -62,9 +68,8 @@ export default function MyOrderCard({ order, onDelete }) {
               minute: "2-digit",
             })}
           </time>
-
           <span
-            className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase ${status.color}`}
+            className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase bg-white text-green-700 border border-green-700`}
           >
             {status.icon}
             {status.label}
@@ -73,7 +78,7 @@ export default function MyOrderCard({ order, onDelete }) {
       </header>
 
       {/* Product List */}
-      <ul className="divide-y divide-gray-200 dark:divide-gray-700 max-h-52 overflow-y-auto mb-6">
+      <ul className="divide-y divide-green-100 max-h-52 overflow-y-auto mb-6 px-6 pt-4 relative z-10">
         {order.products?.map((item) => {
           const imgSrc = item.productImage?.startsWith("http")
             ? item.productImage
@@ -89,7 +94,7 @@ export default function MyOrderCard({ order, onDelete }) {
                   <img
                     src={imgSrc}
                     alt={item.name}
-                    className="w-12 h-12 rounded-lg object-cover border border-gray-400 dark:border-gray-500 shadow-sm"
+                    className="w-12 h-12 rounded-lg object-cover border border-green-400 shadow-sm"
                     loading="lazy"
                   />
                 ) : (
@@ -97,12 +102,11 @@ export default function MyOrderCard({ order, onDelete }) {
                     🧢
                   </div>
                 )}
-
                 <div className="text-gray-800 dark:text-gray-100 font-semibold text-sm">
                   {item.name} × {item.quantity}
                 </div>
               </div>
-              <div className="text-indigo-600 dark:text-indigo-300 font-bold text-sm">
+              <div className="text-green-700 font-bold text-sm">
                 Rs {formatCurrency(item.price * item.quantity)}
               </div>
             </li>
@@ -111,11 +115,11 @@ export default function MyOrderCard({ order, onDelete }) {
       </ul>
 
       {/* Footer */}
-      <footer className="flex justify-between items-center px-2 py-3 bg-indigo-50 dark:bg-indigo-900 rounded-xl text-indigo-900 dark:text-indigo-200 text-base font-semibold shadow-inner">
-        <span>Total: Rs {formatCurrency(order.total)}</span>
+      <footer className="flex justify-between items-center px-6 py-4 bg-green-50 rounded-b-2xl text-green-900 text-base font-semibold shadow-inner border-t border-green-200 relative z-10">
+        <span>Total: <span className="font-bold">Rs {formatCurrency(order.total)}</span></span>
         <button
           onClick={() => onDelete(order._id)}
-          className="flex items-center gap-1 text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 transition-colors text-sm font-semibold"
+          className="flex items-center gap-1 border border-red-500 text-red-600 hover:bg-red-500 hover:text-white transition-colors text-sm font-semibold px-4 py-2 rounded-lg bg-white dark:bg-gray-900"
         >
           <Trash2 className="w-5 h-5" />
           Delete
