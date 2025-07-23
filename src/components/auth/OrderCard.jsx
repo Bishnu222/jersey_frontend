@@ -102,7 +102,7 @@ export default function MyOrderCard({ order, onDelete }) {
                     🧢
                   </div>
                 )}
-                <div className="text-gray-800 dark:text-gray-100 font-semibold text-sm">
+                <div className="text-green-800 font-semibold text-base">
                   {item.name} × {item.quantity}
                 </div>
               </div>

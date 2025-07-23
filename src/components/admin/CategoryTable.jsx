@@ -62,9 +62,9 @@ export default function CategoryTable() {
                 <td data-label="Image">
                   <img
                     className="category-image"
-                    src={getBackendImageUrl(row.filepath)}
+                    src={row.filepath ? getBackendImageUrl(row.filepath) : '/default-category.png'}
                     alt={row.name || 'Category'}
-                    onError={(e) => (e.target.src = '/fallback-image.png')}
+                    onError={(e) => (e.target.src = '/default-category.png')}
                   />
                 </td>
                 <td data-label="Actions">

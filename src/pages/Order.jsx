@@ -90,27 +90,21 @@ export default function Order() {
   const groupedOrders = groupOrdersByDate(orders);
 
   return (
-    <div className="p-6 sm:p-10 max-w-6xl mx-auto">
-      <h1 className="text-3xl font-extrabold mb-8 text-indigo-700 dark:text-indigo-300 tracking-wide">
+    <div className="p-6 sm:p-10 max-w-6xl mx-auto bg-gray-200 min-h-screen rounded-xl">
+      <h1 className="text-3xl font-extrabold mb-8 text-green-700 tracking-wide">
         My Orders
       </h1>
 
-      {Object.entries(groupedOrders).map(([date, ordersOnDate]) => (
-        <section key={date} className="mb-12">
-          <h2 className="sticky top-0 bg-white dark:bg-gray-900 py-2 z-10 text-lg font-bold text-slate-700 dark:text-slate-200 mb-4 border-b border-slate-300 dark:border-slate-700">
-            {date}
-          </h2>
-          <div className="space-y-6">
-            {ordersOnDate.map((order) => (
-              <MyOrderCard
-                key={order._id}
-                order={order}
-                onDelete={openDeleteModal}
-              />
-            ))}
-          </div>
-        </section>
-      ))}
+      {/* Render all orders without date grouping */}
+      <div className="space-y-8">
+        {orders.map((order) => (
+          <MyOrderCard
+            key={order._id}
+            order={order}
+            onDelete={openDeleteModal}
+          />
+        ))}
+      </div>
 
       {/* Delete Confirmation Modal */}
       <DeleteModal

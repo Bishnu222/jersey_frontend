@@ -70,7 +70,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center md:items-start justify-between gap-8">
           {/* Logo and Brand */}
           <div className="flex flex-col items-center md:items-start mb-4 md:mb-0">
-            <img src={logo} alt="JerseyShop Logo" className="w-16 h-16 rounded-full shadow-lg mb-2 border-2 border-green-500" />
+            <img src={logo} alt="JerseyShop Logo" className="w-16 h-16 shadow-lg mb-2 border-2 border-green-500" />
             <span className="text-2xl font-extrabold tracking-wide text-green-400">JerseyShop</span>
             <span className="text-xs text-gray-400 mt-1">For true football fans ⚽</span>
           </div>

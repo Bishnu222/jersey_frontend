@@ -62,33 +62,33 @@ const OrderTable = () => {
           <table className="min-w-full bg-white border border-gray-200 shadow-md rounded-lg">
             <thead>
               <tr className="bg-gray-100 text-gray-700">
-                <th className="py-2 px-4 border-b">User</th>
-                <th className="py-2 px-4 border-b">Email</th>
-                <th className="py-2 px-4 border-b">Products</th>
-                <th className="py-2 px-4 border-b">Status</th>
-                <th className="py-2 px-4 border-b">Total</th>
-                <th className="py-2 px-4 border-b">Date</th>
-                <th className="py-2 px-4 border-b">Actions</th>
+                <th className="py-4 px-4 border-b">User</th>
+                <th className="py-4 px-4 border-b">Email</th>
+                <th className="py-4 px-4 border-b">Products</th>
+                <th className="py-4 px-4 border-b">Status</th>
+                <th className="py-4 px-4 border-b">Total</th>
+                <th className="py-4 px-4 border-b">Date</th>
+                <th className="py-4 px-4 border-b">Actions</th>
               </tr>
             </thead>
             <tbody>
               {orders.map((order) => (
                 <tr key={order._id} className="hover:bg-gray-50">
-                  <td className="py-2 px-4 border-b">{order.userId?.username}</td>
-                  <td className="py-2 px-4 border-b">{order.userId?.email}</td>
-                  <td className="py-2 px-4 border-b">
+                  <td className="py-4 px-4 border-b">{order.userId?.username}</td>
+                  <td className="py-4 px-4 border-b">{order.userId?.email}</td>
+                  <td className="py-6 px-4 border-b">
                     {order.products.map((product, idx) => (
                       <div key={idx} className="flex items-center gap-2 mb-1">
                         {product.productImage && (
-                          <img src={getBackendImageUrl(product.productImage)} alt={product.name} className="w-8 h-8 rounded object-cover border" />
+                          <img src={getBackendImageUrl(product.productImage)} alt={product.name} className="w-16 h-16 rounded object-cover border" />
                         )}
-                        <span className="font-semibold">{product.name}</span>
+                        <span className="font-semibold text-base">{product.name}</span>
                         <span className="text-xs text-gray-500">x{product.quantity}</span>
                         <span className="text-xs text-gray-400">Rs {product.price}</span>
                       </div>
                     ))}
                   </td>
-                  <td className="py-2 px-4 border-b">
+                  <td className="py-4 px-4 border-b">
                     <span className={`px-3 py-1 rounded-full text-xs font-bold ${
                       order.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
                       order.status === 'processing' ? 'bg-blue-100 text-blue-800' :
@@ -97,11 +97,11 @@ const OrderTable = () => {
                       {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
                     </span>
                   </td>
-                  <td className="py-2 px-4 border-b">Rs {order.total.toFixed(2)}</td>
-                  <td className="py-2 px-4 border-b">
+                  <td className="py-4 px-4 border-b">Rs {order.total.toFixed(2)}</td>
+                  <td className="py-4 px-4 border-b">
                     {new Date(order.date).toLocaleString()}
                   </td>
-                  <td className="py-2 px-4 border-b flex gap-2">
+                  <td className="py-4 px-4 border-b flex gap-2">
                     {order.status === 'pending' && (
                       <button
                         className="bg-blue-500 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs font-bold"
