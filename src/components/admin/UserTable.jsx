@@ -20,9 +20,6 @@ export default function UserTable() {
     <div className="user-table-container">
       <div className="user-table-header">
         <h2>Users</h2>
-        <Link to="/admin/user/create">
-          <button className="add-user-btn">Add User</button>
-        </Link>
       </div>
 
       {users.length === 0 ? (
@@ -44,19 +41,6 @@ export default function UserTable() {
               </div>
 
               <div className="user-actions">
-                {/* View button - navigates to user details page */}
-                <Link to={`/admin/user/${user._id}`} className="action-btn view">
-                  View
-                </Link>
-
-                {/* Edit button - navigates to user edit page */}
-                <Link
-                  to={`/admin/user/${user._id}/edit`}
-                  className="action-btn edit"
-                >
-                  Edit
-                </Link>
-
                 {/* Delete button - immediate delete with confirmation */}
                 <button
                   onClick={() => handleDelete(user._id)}

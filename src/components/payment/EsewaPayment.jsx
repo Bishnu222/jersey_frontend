@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 
-export default function EsewaPayment({ amount }) {
+export default function EsewaPayment({ amount, orderPayload, createOrder, clearCart }) {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -11,9 +12,21 @@ export default function EsewaPayment({ amount }) {
     setSuccess(false);
     // Simulate payment processing delay
     setTimeout(() => {
-      setLoading(false);
-      setSuccess(true);
-      setMessage('Payment successfully done!');
+      // After payment, place the order
+      createOrder.mutate(orderPayload, {
+        onError: (error) => {
+          const backendMsg = error?.response?.data?.message;
+          toast.error('Order creation failed: ' + (backendMsg || error?.message || 'Unknown error'));
+          setMessage('Order creation failed!');
+          setLoading(false);
+        },
+        onSuccess: (data) => {
+          setSuccess(true);
+          setMessage('Payment and order placed successfully!');
+          clearCart();
+          setLoading(false);
+        }
+      });
     }, 1200);
   }
 

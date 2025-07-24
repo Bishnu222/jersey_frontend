@@ -159,7 +159,23 @@ export default function Cart() {
             {/* Show payment option after selection */}
             {selectedPayment === 'online' && (
               <div className="mt-8">
-                <EsewaPayment amount={subtotal} />
+                <EsewaPayment 
+                  amount={subtotal}
+                  orderPayload={{
+                    userId: user?._id,
+                    products: cart.map(p => ({
+                      name: p.name || p.team,
+                      quantity: p.quantity,
+                      price: p.price,
+                      productImage: p.productImage,
+                    })),
+                    total: subtotal,
+                    status: 'pending',
+                    date: new Date().toISOString(),
+                  }}
+                  createOrder={createOrder}
+                  clearCart={clearCart}
+                />
               </div>
             )}
             {selectedPayment === 'cash' && (
