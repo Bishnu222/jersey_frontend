@@ -23,6 +23,7 @@ import UserDashboard from '../pages/UserDashboard';
 import Products from '../pages/Products';
 import Cart from '../pages/Cart';
 import About from '../pages/About';
+import ViewProduct from '../pages/admin/ViewProduct';
 
 export default function AppRouter() {
   return (
@@ -48,6 +49,7 @@ export default function AppRouter() {
 
         <Route path='/admin' element={<AdminLayout />}>
           <Route path='product' element={<ProductManagement />} />
+          <Route path='product/:id' element={<ViewProduct />} />
           <Route path='addproduct' element={<AddProducts />} />
           <Route path='category' element={<CategoryManagement />} />
           <Route path='category/create' element={<CreateCategory />} />

@@ -1,140 +1,107 @@
 /* Header container */
 header {
-  background-color: rgb(29, 87, 9); /* You can change this to #205a2e for dark green */
-  padding: 15px 0;
-  color: black;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(90deg, #0f2027 0%, #2c5364 100%);
+  padding: 18px 0;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(44, 83, 100, 0.12);
 }
 
 /* Main layout container */
 .container {
-  width: 90%;
-  max-width: 1200px;
+  width: 92%;
+  max-width: 1400px;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between; /* Changed to space-between to allow left-right content */
+  justify-content: space-between;
   align-items: center;
-  gap: 48px; /* Add more gap between logo/search/nav */
+  gap: 56px;
+  position: relative;
 }
 
 .logo {
-  height: 110px;
-  max-height: 140px;
+  height: 90px;
   width: auto;
   object-fit: contain;
-  padding: 1px;
-  margin-left: -70px;
+  margin-left: 0;
+  filter: drop-shadow(0 2px 8px rgba(44, 83, 100, 0.15));
 }
-
-
 
 .brand-text {
-  color: white;
-  font-size: 28px;
-  font-family: 'Impact', sans-serif;
+  color: #fff;
+  font-size: 30px;
+  font-family: 'Montserrat', 'Impact', sans-serif;
   font-style: italic;
-  line-height: 1;
   text-transform: uppercase;
   letter-spacing: 2px;
-  text-shadow: -1px 1px 0 #000;
+  text-shadow: 0 2px 8px #0f2027;
 }
 
-.brand-text span {
-  display: block;
-  white-space: nowrap;
-  background: linear-gradient(to right, white 60%, transparent 0%);
-  background-size: 10px 100%;
-  background-repeat: repeat-x;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: white;
-}
-
-
-/* Search box */
-.search-box {
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid white;
-  padding-bottom: 4px;
-  width: 350px;
-  margin-right: 48px; /* Add more space after search box */
-}
-
-.search-box input {
-  background: transparent;
-  border: none;
-  outline: none;
-  color: white;
-  font-weight: bold;
-  flex-grow: 1;
-  padding-right: 8px;
-}
-
-.search-box input::placeholder {
-  color: white;
-  opacity: 0.9;
-}
-
-.search-icon {
-  color: white;
-  font-size: 16px;
-}
-
-/* Navigation links */
 nav {
   display: flex;
-  gap: 36px; /* Increase gap between nav links */
+  gap: 44px;
   align-items: center;
 }
 
 nav a {
-  color: #ccc;
+  color: #e0e6ed;
   text-decoration: none;
-  font-weight: 500;
-  padding: 6px 12px;
-  border-radius: 6px;
-  transition: background 0.3s, color 0.3s;
+  font-weight: 600;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 1.08rem;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
 }
 
 nav a:hover {
-  background-color: #333;
-  color: white;
+  background: rgba(44, 83, 100, 0.18);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(44, 83, 100, 0.08);
 }
 
 nav a.active {
-  color: #ffffff;
-  background-color: #007bff;
-}
-
-nav span {
-  color: white;
-  font-weight: bold;
-  margin-right: 10px;
-}
-
-/* Icon container */
-.icon-buttons {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+  color: #fff;
+  background: #2563eb;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.18);
 }
 
 .logout-button {
-  background-color: #e3342f;
+  background: linear-gradient(90deg, #e3342f 0%, #c82333 100%);
   color: #fff;
   font-weight: bold;
   border: none;
-  padding: 8px 18px;
-  border-radius: 8px;
-  margin-left: 32px; /* More space before logout */
+  padding: 10px 24px;
+  border-radius: 10px;
+  margin-left: 36px;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-  font-size: 1rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  font-size: 1.05rem;
+  box-shadow: 0 2px 8px rgba(227, 52, 47, 0.10);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
 }
 
 .logout-button:hover {
-  background-color: #c82333;
+  background: #a71d2a;
   color: #fff;
+  box-shadow: 0 4px 16px rgba(227, 52, 47, 0.18);
+}
+
+/* Notification bell styles */
+.notification-bell {
+  background: #2563eb;
+  border-radius: 50%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.12);
+  transition: background 0.2s;
+}
+
+.notification-bell:hover {
+  background: #1d4ed8;
+}
+
+.notification-bell svg {
+  color: #fff !important;
+  font-size: 2rem !important;
 }
 

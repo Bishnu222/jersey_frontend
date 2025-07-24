@@ -5,6 +5,7 @@ import {
   useUpdateProduct,
 } from "../../hooks/admin/useAdminProduct";
 import "./ProductTable.css";
+import { Link } from "react-router-dom";
 
 const getImageUrl = (filename) => {
   const BASE_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5050";
@@ -164,9 +165,15 @@ export default function ProductTable() {
                       src={getImageUrl(p.productImage)}
                       alt="jersey"
                       className="product-image"
+                      style={{ width: 75, height: 75, objectFit: 'contain', borderRadius: 10, border: '2px solid #bbdefb' }}
                     />
                   ) : (
-                    "No image"
+                    <img
+                      src={'/no-logo.png'}
+                      alt="No image"
+                      className="product-image"
+                      style={{ width: 75, height: 75, objectFit: 'contain', borderRadius: 10, border: '2px solid #bbdefb' }}
+                    />
                   )}
                 </td>
                 <td>{p.team}</td>
@@ -174,6 +181,11 @@ export default function ProductTable() {
                 <td>{p.size}</td>
                 <td>Rs. {p.price}</td>
                 <td className="product-actions">
+                  <div style={{ display: 'inline-block', border: '1px solid #6366f1', borderRadius: '8px', padding: '2px 12px', marginRight: '10px', background: '#f5f7ff' }}>
+                    <Link to={`/admin/product/${p._id}`} className="view-btn" style={{ color: '#6366f1', fontWeight: 600, textDecoration: 'none' }}>
+                      View
+                    </Link>
+                  </div>
                   <button className="edit-btn" onClick={() => openEditForm(p)}>
                     Edit
                   </button>

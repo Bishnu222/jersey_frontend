@@ -4,6 +4,15 @@ import { useAdminCategory, useDeleteOneCategory } from '../../hooks/admin/useAdm
 import { getBackendImageUrl } from '../../utils/backendImage';
 import { Link } from 'react-router-dom';
 import DeleteModal from '../DeleteModal';
+// Import logo images at the top
+import footballAdminLogo from '../../assets/football-admin.png';
+// Add more imports for other category logos as needed
+
+// Map category names to imported logo images
+const categoryLogos = {
+  "Football": footballAdminLogo,
+  // Add more categories and their logo imports here
+};
 
 export default function CategoryTable() {
   const { categories = [], error, isPending } = useAdminCategory();
@@ -62,16 +71,13 @@ export default function CategoryTable() {
                 <td data-label="Image">
                   <img
                     className="category-image"
-                    src={row.filepath ? getBackendImageUrl(row.filepath) : '/default-category.png'}
+                    src={categoryLogos[row.name] || '/default-category.png'}
                     alt={row.name || 'Category'}
                     onError={(e) => (e.target.src = '/default-category.png')}
                   />
                 </td>
                 <td data-label="Actions">
                   <div className="flex flex-wrap justify-center gap-2">
-                    <Link to={`/admin/category/${row._id}`}>
-                      <button className="action-button view-button">View</button>
-                    </Link>
                     <Link to={`/admin/category/${row._id}/edit`}>
                       <button className="action-button edit-button">Edit</button>
                     </Link>

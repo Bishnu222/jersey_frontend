@@ -6,6 +6,11 @@ export const getAllProductApi = (params) => {
   return axios.get(`${BASE_URL}/api/admin/product`, { params });
 };
 
+export const getProductByIdApi = (id) => {
+  if (!id) throw new Error("Product ID is required");
+  return axios.get(`${BASE_URL}/api/admin/product/${id}`);
+};
+
 export const createProductApi = (formData) => {
   return axios.post(`${BASE_URL}/api/admin/product`, formData, {
     headers: {

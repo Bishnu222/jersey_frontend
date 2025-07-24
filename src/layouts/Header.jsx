@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { AuthContext } from '../auth/AuthProvider'
 import logo from '../assets/logo.jpg'
 import './Header.css'
+import NotificationDropdown from '../components/auth/NotificationDropDown';
 
 export default function Header() {
   const { user, logout } = useContext(AuthContext)
@@ -13,7 +14,7 @@ export default function Header() {
 
   return (
     <header>
-      <div className="container">
+      <div className="container" style={{ position: 'relative' }}>
         {/* Logo and Brand */}
         <div className="Logo">
           <img src={logo} alt="Football Shirts Logo - Jersey Hub" className="logo" />
@@ -41,6 +42,7 @@ export default function Header() {
               <NavLink to="/about" className={({ isActive }) => isActive ? 'active' : ''} onClick={() => setMobileMenuOpen(false)}>
                 About Us
               </NavLink>
+              <NotificationDropdown userId={user._id} />
               <button className="logout-button" onClick={() => { logout(); setMobileMenuOpen(false); }}>
                 Logout
               </button>

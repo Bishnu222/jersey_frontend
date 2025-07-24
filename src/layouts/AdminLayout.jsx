@@ -234,7 +234,7 @@ export default function AdminLayout() {
           className="shadow-md px-6 py-4 flex justify-between items-center admin-header"
           role="banner"
         >
-          <span className="text-lg font-medium">Welcome, Admin</span>
+          <span className="text-lg font-medium" style={{ color: '#fff' }}>Welcome, Admin</span>
           <button
             onClick={handleLogout}
             className="px-4 py-2 text-white rounded transition"
