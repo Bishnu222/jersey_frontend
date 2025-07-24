@@ -26,6 +26,12 @@ export const NotificationProvider = ({ userId, children }) => {
       setUnreadCount((prev) => prev + 1);
     });
 
+    // Listen for real-time product notifications
+    newSocket.on("notification", (notif) => {
+      setNotifications((prev) => [notif, ...prev.slice(0, 4)]);
+      setUnreadCount((prev) => prev + 1);
+    });
+
     setSocket(newSocket);
 
     return () => {

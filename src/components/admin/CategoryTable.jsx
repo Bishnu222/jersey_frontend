@@ -52,7 +52,7 @@ export default function CategoryTable() {
         <thead>
           <tr>
             <th>Name</th>
-            <th>Image</th>
+            <th>Logo</th>
             <th>Actions</th>
           </tr>
         </thead>

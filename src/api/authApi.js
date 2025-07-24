@@ -1,12 +1,8 @@
 import api from "./api";
 
-// Register user (with possible file upload)
+// Register user (send as JSON, not multipart/form-data)
 export const registerUserApi = (formData) =>
-  api.post("/auth/register", formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
+  api.post("/auth/register", formData);
 
 // Login user
 export const loginUserApi = (data) =>

@@ -8,6 +8,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Slide, ToastContainer } from 'react-toastify'
 import AuthContextProvider from './auth/AuthProvider.jsx'
 import { CartProvider } from './auth/CartContext.jsx';
+import { NotificationProvider } from './notification/NotifiacationContext.jsx';
 const queryClient= new QueryClient() 
 
 createRoot(document.getElementById('root')).render(
@@ -15,14 +16,16 @@ createRoot(document.getElementById('root')).render(
     <AuthContextProvider>
        <QueryClientProvider client={queryClient}>
         <CartProvider>
-          <AppRouter />
-          <ToastContainer
-          position='top-center'
-          autoClose={2000}
-          hideProgressBar={false}
-          theme='dark'
-          transition={Slide} // Bouce, slide,zoom,flip
-          />
+          <NotificationProvider userId={JSON.parse(localStorage.getItem('user'))?._id}>
+            <AppRouter />
+            <ToastContainer
+              position='top-center'
+              autoClose={2000}
+              hideProgressBar={false}
+              theme='dark'
+              transition={Slide} // Bouce, slide,zoom,flip
+            />
+          </NotificationProvider>
         </CartProvider>
     </QueryClientProvider>
     </AuthContextProvider>
