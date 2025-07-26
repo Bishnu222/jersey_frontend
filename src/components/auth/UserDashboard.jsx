@@ -3,7 +3,7 @@
 import axios from "axios"
 import { useState, useEffect, useContext } from "react"
 import { ShoppingCart, Plus } from "lucide-react"
-import { getBackendImageUrl } from '../utils/backend-image'
+import { getBackendImageUrl } from '../utils/backendImage'
 import { useAdminProduct } from '../hooks/admin/useAdminProduct'
 import { useCreateOrder } from "../hooks/useCreateOrder"
 import UserSidebar from "../components/UserSidebar"

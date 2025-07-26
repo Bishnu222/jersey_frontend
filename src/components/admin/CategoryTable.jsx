@@ -8,7 +8,7 @@ import DeleteModal from '../DeleteModal';
 import footballAdminLogo from '../../assets/football-admin.png';
 // Add more imports for other category logos as needed
 
-// Map category names to imported logo images
+// Map category names to imported logo images (fallback for categories without uploaded images)
 const categoryLogos = {
   "Football": footballAdminLogo,
   // Add more categories and their logo imports here
@@ -25,6 +25,27 @@ export default function CategoryTable() {
         onSuccess: () => setDeleteId(null),
       });
     }
+  };
+
+  // Helper function to get the correct image source
+  const getImageSource = (category) => {
+    // If category has a filepath, use the backend URL
+    if (category.filepath) {
+      return getBackendImageUrl(category.filepath);
+    }
+    
+    // If no filepath but has a static logo mapping
+    if (categoryLogos[category.name]) {
+      return categoryLogos[category.name];
+    }
+    
+    // Default fallback
+    return '/default-category.png';
+  };
+
+  // Handle image load errors
+  const handleImageError = (e) => {
+    e.target.src = '/default-category.png';
   };
 
   if (isPending) {
@@ -69,12 +90,17 @@ export default function CategoryTable() {
               <tr key={row._id}>
                 <td data-label="Name">{row.name}</td>
                 <td data-label="Image">
-                  <img
-                    className="category-image"
-                    src={categoryLogos[row.name] || '/default-category.png'}
-                    alt={row.name || 'Category'}
-                    onError={(e) => (e.target.src = '/default-category.png')}
-                  />
+                  <div className="flex flex-col items-center">
+                    <img
+                      className="category-image"
+                      src={getImageSource(row)}
+                      alt={row.name || 'Category'}
+                      onError={handleImageError}
+                    />
+                    <small className="text-xs text-gray-500 mt-1">
+                      {row.filepath ? 'Uploaded' : 'Static/Default'}
+                    </small>
+                  </div>
                 </td>
                 <td data-label="Actions">
                   <div className="flex flex-wrap justify-center gap-2">

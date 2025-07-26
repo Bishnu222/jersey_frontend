@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../auth/AuthProvider";
 
 import { useAdminProduct } from "../hooks/admin/useAdminProduct";
-import { getBackendImageUrl } from "../utils/backend-image";
+import { getBackendImageUrl } from "../utils/backendImage";
 import { ChevronRight } from "lucide-react";
 import Slider from "react-slick";
 
