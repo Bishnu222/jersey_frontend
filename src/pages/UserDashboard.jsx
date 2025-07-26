@@ -50,7 +50,9 @@ export default function UserDashboard() {
   // Highlight effect for last added cart item
   const [highlightedId, setHighlightedId] = useState(null);
   const handleAddToCart = (jersey) => {
+    console.log('Adding to cart:', jersey.name || jersey.team);
     addToCart(jersey);
+    console.log('Toast should appear now');
     toast.success("Added to cart!");
   };
   useEffect(() => {

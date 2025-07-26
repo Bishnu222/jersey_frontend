@@ -8,6 +8,7 @@ import { useAdminProduct } from '../hooks/admin/useAdminProduct'
 import { useCreateOrder } from "../hooks/useCreateOrder"
 import UserSidebar from "../components/UserSidebar"
 import { AuthContext } from "../auth/AuthProvider"
+import { toast } from "react-toastify"
 
 const JerseyUserDashboard = () => {
   const { user } = useContext(AuthContext)
@@ -18,6 +19,7 @@ const JerseyUserDashboard = () => {
   const handleOrderSubmit = async () => {
     if (!selectedProduct) return
     await createOrder({ productId: selectedProduct._id, userId: user._id })
+    toast.success(`Order placed for ${selectedProduct.name}!`)
     setSelectedProduct(null)
   }
 

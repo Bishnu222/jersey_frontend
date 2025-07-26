@@ -31,7 +31,9 @@ export default function Products() {
   }, [products, selectedCategory, search]);
 
   const handleAddToCart = (jersey) => {
+    console.log('Products page - Adding to cart:', jersey.name || jersey.team);
     addToCart(jersey);
+    console.log('Products page - Toast should appear now');
     toast.success('Added to cart!');
   };
 

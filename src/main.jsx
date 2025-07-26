@@ -6,6 +6,7 @@ import AppRouter from './routers/AppRouter.jsx'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Slide, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import AuthContextProvider from './auth/AuthProvider.jsx'
 import { CartProvider } from './auth/CartContext.jsx';
 import { NotificationProvider } from './notification/NotifiacationContext.jsx';
