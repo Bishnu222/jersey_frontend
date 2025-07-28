@@ -52,39 +52,39 @@ const OrderTable = () => {
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">All Orders</h2>
+      <h2 className="text-2xl font-bold mb-4 text-black">All Orders</h2>
       {loading ? (
-        <p>Loading...</p>
+        <p className="text-black">Loading...</p>
       ) : orders.length === 0 ? (
-        <p>No orders found.</p>
+        <p className="text-black">No orders found.</p>
       ) : (
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white border border-gray-200 shadow-md rounded-lg">
             <thead>
-              <tr className="bg-gray-100 text-gray-700">
-                <th className="py-4 px-4 border-b">User</th>
-                <th className="py-4 px-4 border-b">Email</th>
-                <th className="py-4 px-4 border-b">Products</th>
-                <th className="py-4 px-4 border-b">Status</th>
-                <th className="py-4 px-4 border-b">Total</th>
-                <th className="py-4 px-4 border-b">Date</th>
-                <th className="py-4 px-4 border-b">Actions</th>
+              <tr className="bg-gray-100 text-black">
+                <th className="py-4 px-4 border-b text-black">User</th>
+                <th className="py-4 px-4 border-b text-black">Email</th>
+                <th className="py-4 px-4 border-b text-black">Products</th>
+                <th className="py-4 px-4 border-b text-black">Status</th>
+                <th className="py-4 px-4 border-b text-black">Total</th>
+                <th className="py-4 px-4 border-b text-black">Date</th>
+                <th className="py-4 px-4 border-b text-black">Actions</th>
               </tr>
             </thead>
             <tbody>
               {orders.map((order) => (
                 <tr key={order._id} className="hover:bg-gray-50">
-                  <td className="py-4 px-4 border-b">{order.userId?.username}</td>
-                  <td className="py-4 px-4 border-b">{order.userId?.email}</td>
+                  <td className="py-4 px-4 border-b text-black">{order.userId?.username}</td>
+                  <td className="py-4 px-4 border-b text-black">{order.userId?.email}</td>
                   <td className="py-6 px-4 border-b">
                     {order.products.map((product, idx) => (
                       <div key={idx} className="flex items-center gap-2 mb-1">
                         {product.productImage && (
                           <img src={getBackendImageUrl(product.productImage)} alt={product.name} className="w-16 h-16 rounded object-cover border" />
                         )}
-                        <span className="font-semibold text-base">{product.name}</span>
-                        <span className="text-xs text-gray-500">x{product.quantity}</span>
-                        <span className="text-xs text-gray-400">Rs {product.price}</span>
+                        <span className="font-semibold text-base text-black">{product.name}</span>
+                        <span className="text-xs text-black">x{product.quantity}</span>
+                        <span className="text-xs text-black">Rs {product.price}</span>
                       </div>
                     ))}
                   </td>
@@ -97,8 +97,8 @@ const OrderTable = () => {
                       {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
                     </span>
                   </td>
-                  <td className="py-4 px-4 border-b">Rs {order.total.toFixed(2)}</td>
-                  <td className="py-4 px-4 border-b">
+                  <td className="py-4 px-4 border-b text-black">Rs {order.total.toFixed(2)}</td>
+                  <td className="py-4 px-4 border-b text-black">
                     {new Date(order.date).toLocaleString()}
                   </td>
                   <td className="py-4 px-4 border-b flex gap-2">

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../auth/AuthProvider'
 import logo from '../assets/logo.jpg'
 import './Header.css'
@@ -7,10 +7,16 @@ import NotificationDropdown from '../components/auth/NotificationDropDown';
 
 export default function Header() {
   const { user, logout } = useContext(AuthContext)
+  const navigate = useNavigate()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen)
+
+  const handleLogout = () => {
+    logout(navigate)
+    setMobileMenuOpen(false)
+  }
 
   return (
     <header>
@@ -43,7 +49,7 @@ export default function Header() {
                 About Us
               </NavLink>
               <NotificationDropdown userId={user._id} />
-              <button className="logout-button" onClick={() => { logout(); setMobileMenuOpen(false); }}>
+              <button className="logout-button" onClick={() => { handleLogout(); }}>
                 Logout
               </button>
             </>

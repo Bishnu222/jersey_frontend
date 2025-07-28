@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRegisterUser } from '../../hooks/useRegisterUser';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import './RegisterForm.css';
 import registerBg from '../../assets/register.png';
 
@@ -122,8 +121,6 @@ export default function RegisterForm() {
           </button>
         </form>
       </div>
-
-      <ToastContainer position="top-center" autoClose={2000} />
     </div>
   );
 }

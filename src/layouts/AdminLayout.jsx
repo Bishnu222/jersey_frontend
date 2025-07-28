@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { Outlet, NavLink } from "react-router-dom";
+import { Outlet, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../auth/AuthProvider";
 import "./AdminLayout.css";
 import adminImage from "../assets/football-admin.png";
@@ -7,6 +7,7 @@ import logo from "../assets/logo.jpg";
 
 export default function AdminLayout() {
   const { logout } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   // Initialize logged-in state from sessionStorage
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
@@ -55,7 +56,7 @@ export default function AdminLayout() {
   };
 
   const handleLogout = () => {
-    logout();
+    logout(navigate);
     setIsLoggedIn(false);
     sessionStorage.removeItem("adminLoggedIn");
     setCredentials({ username: "", password: "" });
@@ -69,22 +70,33 @@ export default function AdminLayout() {
     { to: "/admin/category", label: "Categories" },
     { to: "/admin/category/create", label: "Create Category" },
     { to: "/admin/orders", label: "Orders" },
+    { to: "#", label: "Logout", onClick: handleLogout },
 
     
   ];
 
 
-  const renderNavLink = ({ to, label }) => (
-    <NavLink
-      key={to}
-      to={to}
-      className={({ isActive }) =>
-        `block ${isActive ? "text-red-600 font-semibold" : "text-black hover:text-red-500"}`
-      }
-      aria-current={({ isActive }) => (isActive ? "page" : undefined)}
-    >
-      {label}
-    </NavLink>
+  const renderNavLink = ({ to, label, onClick }) => (
+    onClick ? (
+      <button
+        key={label}
+        onClick={onClick}
+        className="block text-white bg-red-600 hover:bg-red-700 w-full text-left p-3 rounded-lg font-semibold transition-colors mt-4"
+      >
+        {label}
+      </button>
+    ) : (
+      <NavLink
+        key={to}
+        to={to}
+        className={({ isActive }) =>
+          `block ${isActive ? "text-red-600 font-semibold" : "text-black hover:text-red-500"}`
+        }
+        aria-current={({ isActive }) => (isActive ? "page" : undefined)}
+      >
+        {label}
+      </NavLink>
+    )
   );
 
   if (!isLoggedIn) {
@@ -125,7 +137,7 @@ export default function AdminLayout() {
             zIndex: 2,
           }}
         >
-          <h2 className="admin-login-title">Admin Login</h2>
+          <h2 className="admin-login-title" style={{ color: '#000000' }}>Admin Login</h2>
           {error && <p className="admin-error" role="alert">{error}</p>}
 
           {/* Dummy inputs to prevent autofill */}
@@ -151,6 +163,7 @@ export default function AdminLayout() {
               fontSize: '1.1rem',
               width: '100%',
               outline: 'none',
+              color: '#000000',
             }}
           />
           <input
@@ -171,6 +184,7 @@ export default function AdminLayout() {
               fontSize: '1.1rem',
               width: '100%',
               outline: 'none',
+              color: '#000000',
             }}
           />
           <button
@@ -205,26 +219,14 @@ export default function AdminLayout() {
   }
 
   return (
-    <div className="flex h-screen" style={{ background: 'linear-gradient(135deg, #a7ffeb 0%, #e0f7fa 50%, #b2f7b8 100%)' }}>
+    <div className="flex h-screen">
       {/* Sidebar */}
       <aside className="w-64 shadow-lg p-8 admin-sidebar" style={{ background: 'linear-gradient(135deg, #e3f0ff 0%, #e6f4ea 100%)', color: '#22223b', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 4px 24px 0 rgba(0,0,0,0.08)' }}>
         <img src={logo} alt="Logo" className="admin-logo mb-6" style={{ width: 120, height: 70, objectFit: 'contain', borderRadius: '0.5rem', background: '#fff', boxShadow: '0 2px 8px 0 rgba(0,0,0,0.08)' }} />
         <h2 className="text-xl font-bold mb-10 tracking-wide" style={{ color: '#22223b', letterSpacing: '1px', textAlign: 'center' }}>Admin Panel</h2>
         <nav className="flex flex-col gap-3 w-full" aria-label="Admin navigation">
-          {navLinks.map(({ to, label }) => (
-            <NavLink
-              key={to}
-              to={to}
-              className={({ isActive }) =>
-                `block px-5 py-3 rounded-lg font-semibold text-base transition-all duration-200 ${
-                  isActive ? 'bg-blue-600 text-white shadow' : 'hover:bg-blue-900/80 hover:text-white text-gray-200'
-                }`
-              }
-              aria-current={({ isActive }) => (isActive ? "page" : undefined)}
-              style={{ textAlign: 'left', margin: '0 auto', width: '90%', fontFamily: 'inherit', letterSpacing: '0.2px' }}
-            >
-              {label}
-            </NavLink>
+          {navLinks.map(({ to, label, onClick }) => (
+            renderNavLink({ to, label, onClick })
           ))}
         </nav>
       </aside>
@@ -234,19 +236,12 @@ export default function AdminLayout() {
           className="shadow-md px-6 py-4 flex justify-between items-center admin-header"
           role="banner"
         >
-          <span className="text-lg font-medium" style={{ color: '#fff' }}>Welcome, Admin</span>
-          <button
-            onClick={handleLogout}
-            className="px-4 py-2 text-white rounded transition"
-            style={{ backgroundColor: "#009688" }}
-          >
-            Logout
-          </button>
+          {/* Removed Logout button from header */}
         </header>
         <main className="p-6 overflow-y-auto flex-1" role="main">
           <Outlet />
         </main>
-        <footer className="text-center py-2 bg-gray-100" role="contentinfo">
+        <footer className="text-center py-2 bg-gray-100 text-black" role="contentinfo">
           &copy; {new Date().getFullYear()} Jersey Hub. All rights reserved.
         </footer>
       </div>

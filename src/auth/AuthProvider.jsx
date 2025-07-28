@@ -1,4 +1,5 @@
 import { createContext,useState,useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext=createContext()
 
@@ -12,12 +13,15 @@ const AuthContextProvider=({children}) =>{
         setUser(userData)
         setLoading(false) // Ensure loading is set to false after login
     }
-    const logout=()=>{
+    const logout=(navigate) =>{
         setLoading(true)
         localStorage.removeItem("token")
         localStorage.removeItem("user")
         setUser(null)
-        
+        // Navigate to home page after logout if navigate function is provided
+        if (navigate) {
+            navigate("/")
+        }
     }
     useEffect(() =>{
         const token =localStorage.getItem("token")

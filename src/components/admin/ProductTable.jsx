@@ -105,11 +105,11 @@ export default function ProductTable() {
 
   return (
     <div className="product-table-container">
-      <h2>Product Management</h2>
+      <h2 className="product-table-title">Product Management</h2>
 
       <div className="product-controls">
         <div>
-          <label>Show</label>
+          <label style={{ color: '#000000', fontWeight: '600', marginRight: '8px' }}>Show</label>
           <select
             value={pagination.limit || 10}
             onChange={(e) => setPageSize(Number(e.target.value))}
@@ -124,7 +124,7 @@ export default function ProductTable() {
         </div>
 
         <div>
-          <label>Search:</label>
+          <label style={{ color: '#000000', fontWeight: '600', marginRight: '8px' }}>Search:</label>
           <input
             type="text"
             value={search || ""}
@@ -181,11 +181,9 @@ export default function ProductTable() {
                 <td>{p.size}</td>
                 <td>Rs. {p.price}</td>
                 <td className="product-actions">
-                  <div style={{ display: 'inline-block', border: '1px solid #6366f1', borderRadius: '8px', padding: '2px 12px', marginRight: '10px', background: '#f5f7ff' }}>
-                    <Link to={`/admin/product/${p._id}`} className="view-btn" style={{ color: '#6366f1', fontWeight: 600, textDecoration: 'none' }}>
-                      View
-                    </Link>
-                  </div>
+                  <Link to={`/admin/product/${p._id}`} className="view-btn">
+                    View
+                  </Link>
                   <button className="edit-btn" onClick={() => openEditForm(p)}>
                     Edit
                   </button>

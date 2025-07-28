@@ -9,11 +9,15 @@ import {
 import { toast } from "react-toastify";
 
 // Create Order Hook
-export const useCreateOrder = (onSuccess) => {
+export const useCreateOrder = (onSuccess, paymentMethod = 'online') => {
   return useMutation({
     mutationFn: createOrderService,
     onSuccess: () => {
-      toast.success("Your order has been placed. Thank you!");
+      if (paymentMethod === 'cash') {
+        toast.success("Order placed successfully with Cash on Delivery!");
+      } else {
+        toast.success("Payment successful and order placed successfully!");
+      }
       if (onSuccess) onSuccess();
     },
     onError: () => {

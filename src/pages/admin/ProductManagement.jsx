@@ -5,7 +5,6 @@ export default function ProductManagement() {
 
   return (
     <div>
-        ProductManagement
         <ProductTable/>
     </div>
   )

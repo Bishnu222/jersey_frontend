@@ -22,7 +22,7 @@ export default function EsewaPayment({ amount, orderPayload, createOrder, clearC
         },
         onSuccess: (data) => {
           setSuccess(true);
-          setMessage('Payment and order placed successfully!');
+          setMessage('Payment successful and order placed successfully!');
           clearCart();
           setLoading(false);
         }

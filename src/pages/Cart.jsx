@@ -18,7 +18,7 @@ export default function Cart() {
   const [cashSuccess, setCashSuccess] = useState(false);
   const [cashLoading, setCashLoading] = useState(false);
   const { user } = useContext(AuthContext);
-  const createOrder = useCreateOrder(() => clearCart());
+  const createOrder = useCreateOrder(() => clearCart(), selectedPayment);
 
   const subtotal = cart.reduce((total, product) => {
     return total + product.price * product.quantity;

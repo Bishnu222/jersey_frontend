@@ -1,18 +1,37 @@
 /* Global styles */
 :root {
-  --color-primary: #009688;
-  --color-primary-dark: #00695c;
-  --color-error: #dc2626;
-  --color-bg: whitesmoke;
-  --color-input-bg: var(--color-primary);
-  --color-input-placeholder: #e0f2f1;
-  --color-text-primary: #1f2937;
-  --color-text-secondary: #435856;
+  --color-primary: #667eea;
+  --color-secondary: #764ba2;
+  --color-accent: #f093fb;
+  --color-success: #4facfe;
+  --color-warning: #43e97b;
+  --color-danger: #fa709a;
+  --color-info: #a8edea;
+  --color-light: #d299c2;
+  --color-dark: #22223b;
+  --color-bg: #D9EAE0;
   --color-sidebar-bg: #fff;
-  --color-sidebar-text: #111717;
-  --color-sidebar-hover-bg: var(--color-primary);
-  --color-sidebar-hover-text: #fff;
-  --color-header-bg: #f5f7f8;
+  --color-text: #333;
+  --color-text-light: #666;
+  --color-border: #e2e8f0;
+  --color-shadow: rgba(0, 0, 0, 0.1);
+  --color-shadow-hover: rgba(0, 0, 0, 0.15);
+  --color-gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --color-gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --color-gradient-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --color-gradient-warning: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  --color-gradient-danger: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  --color-gradient-info: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  --color-gradient-light: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);
+  --color-gradient-dark: linear-gradient(135deg, #22223b 0%, #4a4a6a 100%);
+  --color-gradient-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --color-gradient-bg-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --color-gradient-bg-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --color-gradient-bg-warning: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  --color-gradient-bg-danger: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  --color-gradient-bg-info: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  --color-gradient-bg-light: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);
+  --color-gradient-bg-dark: linear-gradient(135deg, #22223b 0%, #4a4a6a 100%);
 }
 
 *,
@@ -189,14 +208,9 @@ body {
 
 /* Header */
 .admin-header {
-  background-color: var(--color-header-bg);
-  padding: 20px;
-  text-align: center;
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--color-text-secondary);
-  user-select: none;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: transparent;
+  color: #1f2937;
+  box-shadow: 0 4px 16px rgba(44, 83, 100, 0.12);
 }
 
 /* Responsive styles */
